@@ -19,7 +19,7 @@ public class WhatsAppTemplateService {
     private static final DateTimeFormatter DATA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private static final DateTimeFormatter HORA = DateTimeFormatter.ofPattern("HH:mm");
     private static final int MAX_MENSAGEM = 4000;
-    private static final String RODAPE = "Acesse o BRMusic para consultar sua escala completa.";
+    private static final String RODAPE = "Acesse o BRMusics para consultar sua escala completa.";
 
     public String montar(WhatsAppTipoMensagem tipo, WhatsAppMensagemContexto contexto) {
         if (tipo == WhatsAppTipoMensagem.PUBLICACAO_ESCALA || tipo == WhatsAppTipoMensagem.LEMBRETE) {
@@ -50,11 +50,11 @@ public class WhatsAppTemplateService {
 
     private static String tituloAlteracao(WhatsAppTipoMensagem tipo) {
         return switch (tipo) {
-            case NOVA_ESCALA -> "🎵 BRMusic — Nova escala";
-            case REMOCAO_ESCALA -> "🎵 BRMusic — Remoção da escala";
-            case ALTERACAO_REPERTORIO -> "🎵 BRMusic — Repertório alterado";
-            case CELEBRACAO_CANCELADA -> "🎵 BRMusic — Celebração cancelada";
-            default -> "🎵 BRMusic — Alteração da escala";
+            case NOVA_ESCALA -> "🎵 BRMusics — Nova escala";
+            case REMOCAO_ESCALA -> "🎵 BRMusics — Remoção da escala";
+            case ALTERACAO_REPERTORIO -> "🎵 BRMusics — Repertório alterado";
+            case CELEBRACAO_CANCELADA -> "🎵 BRMusics — Celebração cancelada";
+            default -> "🎵 BRMusics — Alteração da escala";
         };
     }
 
@@ -92,10 +92,10 @@ public class WhatsAppTemplateService {
         String nome = nome(contexto);
         String competencia = competenciaDe(contexto);
         String titulo = tipo == WhatsAppTipoMensagem.LEMBRETE
-                ? "🎵 BRMusic — Lembrete de " + competencia
+                ? "🎵 BRMusics — Lembrete de " + competencia
                 : tipo == WhatsAppTipoMensagem.ALTERACAO_ESCALA
-                ? "🎵 BRMusic — Escala atualizada de " + competencia
-                : "🎵 BRMusic — Escala de " + competencia;
+                ? "🎵 BRMusics — Escala atualizada de " + competencia
+                : "🎵 BRMusics — Escala de " + competencia;
 
         StringBuilder sb = new StringBuilder();
         sb.append(titulo).append("\n\n");

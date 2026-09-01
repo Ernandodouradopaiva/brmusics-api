@@ -41,7 +41,7 @@ class WhatsAppTemplateServiceTest {
         String texto = service.montar(WhatsAppTipoMensagem.PUBLICACAO_ESCALA, contexto);
 
         assertThat(texto)
-                .contains("🎵 BRMusic — Escala de Setembro/2026")
+                .contains("🎵 BRMusics — Escala de Setembro/2026")
                 .contains("Olá, João!")
                 .contains("06/09/2026")
                 .contains("27/09/2026")
@@ -52,7 +52,7 @@ class WhatsAppTemplateServiceTest {
                 .contains("Glória: Glória — Tom G")
                 .contains("Comunhão: Pão da Vida — Tom D")
                 .contains("Ofertório: Minha Vida Tem Sentido — Tom G")
-                .contains("Acesse o BRMusic para consultar sua escala completa.");
+                .contains("Acesse o BRMusics para consultar sua escala completa.");
         assertThat(texto.indexOf("06/09/2026")).isLessThan(texto.indexOf("27/09/2026"));
     }
 
