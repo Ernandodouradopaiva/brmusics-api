@@ -1,0 +1,15 @@
+.target/
+# Segredos locais — use os templates *.env.example em config/
+.env
+config/projetoA-api.dev.env
+config/projetoA-api.homolog.env
+
+*.key
+*.jks
+*.p12
+*.crt
+*.pem
+
+.idea/
+.vscode/
+*.log

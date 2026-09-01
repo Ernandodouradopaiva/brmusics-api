@@ -1,0 +1,15 @@
+target
+.git
+.idea
+.vscode
+.env
+.env.*
+!.env.example
+config/*.env
+!config/*.env.example
+*.pem
+*.key
+*.jks
+*.p12
+*.crt
+*.log

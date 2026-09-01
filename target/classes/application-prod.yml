@@ -1,0 +1,10 @@
+# Produção — variáveis em config/projetoA-api.prod.env
+spring:
+  config:
+    import: optional:file:config/projetoA-api.prod.env[.properties]
+
+springdoc:
+  api-docs:
+    enabled: false
+  swagger-ui:
+    enabled: false

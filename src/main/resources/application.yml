@@ -1,0 +1,91 @@
+spring:
+  application:
+    name: projetoA-api
+
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+
+  flyway:
+    enabled: true
+
+  servlet:
+    multipart:
+      max-file-size: 8MB
+      max-request-size: 9MB
+
+server:
+  port: ${SERVER_PORT}
+
+auth:
+  cookie:
+    secure: ${AUTH_COOKIE_SECURE}
+
+jwt:
+  secret: ${JWT_SECRET}
+  issuer: ${JWT_ISSUER:projetoA-api}
+  expiration-seconds: ${JWT_EXPIRATION_SECONDS:28800}
+
+app:
+  cors:
+    allowed-origins: ${APP_CORS_ALLOWED_ORIGINS}
+  api-internal-url: ${APP_API_INTERNAL_URL}
+  whatsapp:
+    enabled: ${WHATSAPP_ENABLED:false}
+    provider: ${WHATSAPP_PROVIDER:fake}
+    api-base-url: ${WHATSAPP_API_BASE_URL:https://graph.facebook.com}
+    api-version: ${WHATSAPP_API_VERSION:v21.0}
+    phone-number-id: ${WHATSAPP_PHONE_NUMBER_ID:}
+    access-token: ${WHATSAPP_ACCESS_TOKEN:}
+    webhook-verify-token: ${WHATSAPP_WEBHOOK_VERIFY_TOKEN:}
+    app-secret: ${WHATSAPP_APP_SECRET:}
+    default-country-code: ${WHATSAPP_DEFAULT_COUNTRY_CODE:55}
+    template-name: ${WHATSAPP_TEMPLATE_NAME:}
+    template-language: ${WHATSAPP_TEMPLATE_LANGUAGE:pt_BR}
+    rate-limit-per-minute: ${WHATSAPP_RATE_LIMIT_PER_MINUTE:20}
+    max-tentativas: ${WHATSAPP_MAX_TENTATIVAS:3}
+    retry-interval-seconds: ${WHATSAPP_RETRY_INTERVAL_SECONDS:60}
+    poll-interval-ms: ${WHATSAPP_POLL_INTERVAL_MS:5000}
+    stuck-processing-seconds: ${WHATSAPP_STUCK_PROCESSING_SECONDS:300}
+    batch-size: ${WHATSAPP_BATCH_SIZE:20}
+
+sps:
+  projetoa:
+    storage:
+      local:
+        anexos: ${PROJETO_A_STORAGE_LOCAL_ANEXOS}
+
+# Storage: minio | local (local também quando minio.url estiver vazio)
+storage:
+  type: ${STORAGE_TYPE}
+
+minio:
+  url: ${MINIO_URL}
+  bucket: ${MINIO_BUCKET}
+  default-folder: ${MINIO_DEFAULT_FOLDER}
+  access-name: ${MINIO_ACCESS_NAME}
+  access-secret: ${MINIO_ACCESS_SECRET}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: never
+
+springdoc:
+  swagger-ui:
+    path: /docs
+    tags-sorter: alpha
+    doc-expansion: none
+    enabled: ${SPRINGDOC_SWAGGER_UI_ENABLED}
+  packages-to-scan: br.gov.ce.sps.projetoa
+  default-flat-param-object: true

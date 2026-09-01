@@ -1,0 +1,41 @@
+# =============================================================================
+# ConfigMap — projetoA-api (produção)
+# Aplicar: kubectl apply -f projetoA-api-configmap.example.yaml
+# Segredos: JWT_SECRET, DB_PASSWORD, MinIO — em Secret separado
+# =============================================================================
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: projetoA-api-config
+  namespace: SEU_NAMESPACE
+data:
+  SPRING_PROFILES_ACTIVE: "prod"
+  SERVER_PORT: "8081"
+
+  APP_API_INTERNAL_URL: "http://projeto-a-api:8081"
+  APP_CORS_ALLOWED_ORIGINS: "https://SEU_DOMINIO_PROJETOA"
+
+  JWT_ISSUER: "projetoA-api"
+  JWT_EXPIRATION_SECONDS: "28800"
+
+  AUTH_COOKIE_SECURE: "true"
+  SPRINGDOC_SWAGGER_UI_ENABLED: "false"
+
+  STORAGE_TYPE: "minio"
+  MINIO_URL: "https://s3-golden.goldencloud.tech"
+  MINIO_BUCKET: "spscloud"
+  MINIO_DEFAULT_FOLDER: "sistemas/projetoA/"
+  PROJETO_A_STORAGE_LOCAL_ANEXOS: "/opt/projetoA/anexos"
+
+  WHATSAPP_ENABLED: "false"
+  WHATSAPP_PROVIDER: "cloud"
+  WHATSAPP_API_BASE_URL: "https://graph.facebook.com"
+  WHATSAPP_API_VERSION: "v21.0"
+  WHATSAPP_DEFAULT_COUNTRY_CODE: "55"
+  WHATSAPP_TEMPLATE_LANGUAGE: "pt_BR"
+  WHATSAPP_RATE_LIMIT_PER_MINUTE: "20"
+  WHATSAPP_MAX_TENTATIVAS: "3"
+  WHATSAPP_RETRY_INTERVAL_SECONDS: "60"
+  WHATSAPP_POLL_INTERVAL_MS: "5000"
+  WHATSAPP_STUCK_PROCESSING_SECONDS: "300"
+  WHATSAPP_BATCH_SIZE: "20"

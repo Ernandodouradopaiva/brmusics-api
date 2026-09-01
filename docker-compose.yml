@@ -1,0 +1,14 @@
+services:
+  projetoA-api:
+    build: .
+    container_name: projetoA-api
+    network_mode: net_sps
+    ports:
+      # Host 8081 já está em uso neste Docker Desktop (prognosticoscef-front).
+      - "8082:8081"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: always
+    image: hub.sps.ce.gov.br/conecta/projetoa-api
+    env_file:
+      - ./config/projetoA-api.prod.env

@@ -1,0 +1,13 @@
+#version: '3.7'
+#services:
+#  -api:
+#    build: .
+#    container_name:
+#    network_mode: net_sps
+#    ports:
+#      -
+#    restart: always
+#    image:
+#    environment:
+#      SPRING_PROFILES_ACTIVE:
+

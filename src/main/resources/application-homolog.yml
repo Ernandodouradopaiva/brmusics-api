@@ -1,0 +1,4 @@
+# Homologação — variáveis em config/projetoA-api.homolog.env
+spring:
+  config:
+    import: optional:file:config/projetoA-api.homolog.env[.properties]

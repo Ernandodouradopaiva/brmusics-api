@@ -1,0 +1,48 @@
+trigger:
+  branches:
+    include:
+      - master
+      - homolog
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  dockerImageName: 'hub.sps.ce.gov.br/sqp/sqp-api'
+  dockerRegistryServiceConnection: 'harborRegistryConnection'
+
+stages:
+- stage: BuildAndPush
+  jobs:
+  - job: BuildAndPushJob
+    steps:
+    - checkout: self
+
+    - script: |
+        sudo apt-get update
+        sudo apt-get install -y openjdk-23-jdk
+        java -version
+      displayName: 'Install Java 23'
+
+    - script: |
+        echo "Setting Docker image tag"
+        if [ "$(Build.SourceBranchName)" == "master" ]; then
+          echo "##vso[task.setvariable variable=dockerImageTag;]latest"
+        elif [ "$(Build.SourceBranchName)" == "homolog" ]; then
+          echo "##vso[task.setvariable variable=dockerImageTag;]stage"
+        fi
+      displayName: 'Set Docker Image Tag'
+
+    - task: Docker@2
+      inputs:
+        command: login
+        containerRegistry: $(dockerRegistryServiceConnection)
+      displayName: 'Login to Harbor Registry'
+
+    - script: |
+        docker build -t $(dockerImageName):$(dockerImageTag) .
+      displayName: 'Build Docker Image'
+
+    - script: |
+        docker push $(dockerImageName):$(dockerImageTag)
+      displayName: 'Push Docker Image'

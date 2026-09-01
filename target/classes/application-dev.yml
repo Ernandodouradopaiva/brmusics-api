@@ -1,0 +1,4 @@
+# Desenvolvimento — variáveis em config/projetoA-api.dev.env
+spring:
+  config:
+    import: optional:file:config/projetoA-api.dev.env[.properties]
