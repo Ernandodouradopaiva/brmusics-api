@@ -1,14 +1,12 @@
 services:
-  projetoA-api:
+  brmusic-api:
     build: .
-    container_name: projetoA-api
-    network_mode: net_sps
+    container_name: brmusic-api
+    image: ernandopaiva/brmusic-api:1.0.0
     ports:
-      # Host 8081 já está em uso neste Docker Desktop (prognosticoscef-front).
       - "8082:8081"
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
     restart: always
-    image: hub.sps.ce.gov.br/conecta/projetoa-api
     env_file:
-      - ./config/projetoA-api.prod.env
+      - ./config/
+    environment:
+      APP_API_INTERNAL_URL: http://brmusic-api:8081

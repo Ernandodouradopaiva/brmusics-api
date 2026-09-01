@@ -1,8 +1,12 @@
-FROM maven:3.9-eclipse-temurin-23
+FROM maven:3.9-eclipse-temurin-23 AS build
+WORKDIR /src
+COPY . .
+RUN mvn -B -DskipTests clean package \
+ && mkdir -p /out \
+ && find /src/target -maxdepth 1 -type f -name '*.jar' ! -name '*.jar.original' -exec cp {} /out/app.jar \;
 
-COPY . /app
+FROM eclipse-temurin:23-jre
 WORKDIR /app
-
-RUN mvn clean package -DskipTests
+COPY --from=build /out/app.jar /app/app.jar
 EXPOSE 8081
-ENTRYPOINT ["java", "-jar", "/app/target/projetoA-api-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]
