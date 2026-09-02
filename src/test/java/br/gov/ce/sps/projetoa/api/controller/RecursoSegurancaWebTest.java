@@ -43,7 +43,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * Slice HTTP sem {@code ProjetoAApplication} ({@code @EnableJpaRepositories})
+ * Slice HTTP sem {@code BrmusicsApplication} ({@code @EnableJpaRepositories})
  * para validar 401/403/@PreAuthorize sem o núcleo JWT/cookie.
  */
 @WebMvcTest(controllers = {
@@ -68,7 +68,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         "JWT_SECRET=test-secret-key-for-unit-tests-only",
         "APP_CORS_ALLOWED_ORIGINS=http://localhost:3000",
         "APP_API_INTERNAL_URL=http://localhost:8080",
-        "PROJETO_A_STORAGE_LOCAL_ANEXOS=/tmp/anexos",
+        "BRMUSICS_STORAGE_LOCAL_ANEXOS=/tmp/anexos",
         "STORAGE_TYPE=local",
         "MINIO_URL=",
         "MINIO_BUCKET=test",

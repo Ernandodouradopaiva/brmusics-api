@@ -1,6 +1,6 @@
 spring:
   application:
-    name: projetoA-api
+    name: brmusics-api
 
   datasource:
     url: ${DB_URL}
@@ -29,7 +29,7 @@ auth:
 
 jwt:
   secret: ${JWT_SECRET}
-  issuer: ${JWT_ISSUER:projetoA-api}
+  issuer: ${JWT_ISSUER:brmusics-api}
   expiration-seconds: ${JWT_EXPIRATION_SECONDS:28800}
 
 app:
@@ -56,10 +56,10 @@ app:
     batch-size: ${WHATSAPP_BATCH_SIZE:20}
 
 sps:
-  projetoa:
+  brmusics:
     storage:
       local:
-        anexos: ${PROJETO_A_STORAGE_LOCAL_ANEXOS}
+        anexos: ${BRMUSICS_STORAGE_LOCAL_ANEXOS}
 
 # Storage: minio | local (local também quando minio.url estiver vazio)
 storage:

@@ -10,10 +10,10 @@
 --   10000000006  ELENA SAXOFONE      MUSICO
 -- Músico sem usuário (só WhatsApp): FELIPE PERCUSSAO
 --
--- Uso (Postgres em host.docker.internal:15432, banco projetoa):
---   docker run --rm -e PGPASSWORD= --network net_sps ^
+-- Uso (Postgres 181.215.134.218:5432, banco brmusics):
+--   docker run --rm -e PGPASSWORD=SENHA --network host ^
 --     -v "%CD%/scripts/seed-dados-teste.sql:/seed.sql:ro" ^
---     postgres:16-alpine psql -h host.docker.internal -p 15432 -U postgres -d projetoa -v ON_ERROR_STOP=1 -f /seed.sql
+--     postgres:16-alpine psql -h 181.215.134.218 -p 5432 -U postgres -d brmusics -v ON_ERROR_STOP=1 -f /seed.sql
 
 BEGIN;
 

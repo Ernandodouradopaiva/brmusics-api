@@ -56,7 +56,7 @@ public class AtualizaUsuarioService {
 
         if (usuarioInput.getGrupos() != null) {
             if (usuarioInput.getGrupos().size() > 1) {
-                throw new NegocioException("O usuário pode ter apenas um perfil (grupo) no Projeto A.");
+                throw new NegocioException("O usuário pode ter apenas um perfil (grupo) no BRMusics.");
             }
             usuario.setGrupos(getGrupoService.findAllByUUID(usuarioInput.getGrupos()));
         }

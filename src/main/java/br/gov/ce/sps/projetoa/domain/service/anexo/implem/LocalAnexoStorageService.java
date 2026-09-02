@@ -25,7 +25,7 @@ import jakarta.annotation.PostConstruct;
 @Conditional(LocalStorageEnabledCondition.class)
 public class LocalAnexoStorageService implements AnexoStorageService {
 
-	@Value("${sps.projetoa.storage.local.anexos}")
+	@Value("${sps.brmusics.storage.local.anexos}")
 	private String diretorioAnexosStr;
 
 	private Path diretorioAnexos;

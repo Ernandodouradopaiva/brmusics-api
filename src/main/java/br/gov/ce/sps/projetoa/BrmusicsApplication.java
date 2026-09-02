@@ -13,10 +13,10 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableJpaRepositories(repositoryBaseClass = CustomJpaRepositoryImpl.class)
 @EnableAsync
 @EnableScheduling
-public class ProjetoAApplication {
+public class BrmusicsApplication {
 
 	public static void main(String[] args) {
 		System.setProperty(AbstractEnvironment.DEFAULT_PROFILES_PROPERTY_NAME, "dev");
-		SpringApplication.run(ProjetoAApplication.class, args);
+		SpringApplication.run(BrmusicsApplication.class, args);
 	}
 }

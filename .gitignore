@@ -1,8 +1,9 @@
 .target/
 # Segredos locais — use os templates *.env.example em config/
 .env
-config/projetoA-api.dev.env
-config/projetoA-api.homolog.env
+config/brmusics-api.dev.env
+config/brmusics-api.homolog.env
+config/brmusics-api.prod.env
 
 *.key
 *.jks

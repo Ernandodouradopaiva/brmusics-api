@@ -8,6 +8,6 @@ import java.util.UUID;
 
 public record GruposInput(
         @NotNull
-        @Size(max = 1, message = "O usuário pode ter apenas um perfil (grupo) no Projeto A.")
+        @Size(max = 1, message = "O usuário pode ter apenas um perfil (grupo) no BRMusics.")
         List<UUID> gruposIds
 ) {}

@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>br.gov.ce.sps</groupId>
-	<artifactId>projetoA-api</artifactId>
+	<artifactId>brmusics-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>projetoA-api</name>
-	<description>Projeto A API</description>
+	<name>brmusics-api</name>
+	<description>BRMusics API</description>
 	<properties>
 		<java.version>23</java.version>
 		<jasperreports.version>6.20.0</jasperreports.version>

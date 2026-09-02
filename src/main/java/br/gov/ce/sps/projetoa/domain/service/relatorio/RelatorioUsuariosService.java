@@ -30,7 +30,7 @@ public class RelatorioUsuariosService {
                 .toList();
         return pdfGenerator.gerar(new RelatorioUsuariosPdfGenerator.Resumo(
                 "Relatório de Usuários",
-                "Listagem cadastral — Projeto A",
+                "Listagem cadastral — BRMusics",
                 usuarios.size(),
                 ativos,
                 inativos,

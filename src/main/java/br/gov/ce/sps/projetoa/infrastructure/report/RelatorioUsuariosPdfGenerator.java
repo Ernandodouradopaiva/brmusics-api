@@ -43,7 +43,7 @@ public class RelatorioUsuariosPdfGenerator {
                     new RelatorioExecutivoPdfContext.MetaItem(
                             RelatorioPdfIcons.Tipo.CALENDARIO, "DATA DE EMISSÃO", dataEmissao),
                     new RelatorioExecutivoPdfContext.MetaItem(
-                            RelatorioPdfIcons.Tipo.SISTEMA, "SISTEMA", "Projeto A"),
+                            RelatorioPdfIcons.Tipo.SISTEMA, "SISTEMA", "BRMusics"),
                     new RelatorioExecutivoPdfContext.MetaItem(
                             RelatorioPdfIcons.Tipo.RELATORIO_EXECUTIVO, "TIPO", "Usuários"));
 
@@ -83,7 +83,7 @@ public class RelatorioUsuariosPdfGenerator {
             }
 
             ctx.drawObservacoes(
-                    "1. Listagem conforme cadastro no sistema Projeto A.",
+                    "1. Listagem conforme cadastro no sistema BRMusics.",
                     "2. Relatório gerado no padrão executivo SPS (PDFBox).",
                     "3. Logo em /images pode ser substituído (logo-sistema.png).");
 

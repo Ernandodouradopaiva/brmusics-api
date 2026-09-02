@@ -1,7 +1,7 @@
-# Produção — variáveis em config/projetoA-api.prod.env
+# Produção — variáveis em config/brmusics-api.prod.env
 spring:
   config:
-    import: optional:file:config/projetoA-api.prod.env[.properties]
+    import: optional:file:config/brmusics-api.prod.env[.properties]
 
 springdoc:
   api-docs:

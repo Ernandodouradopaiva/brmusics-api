@@ -1,4 +1,4 @@
-# Desenvolvimento — variáveis em config/projetoA-api.dev.env
+# Desenvolvimento — variáveis em config/brmusics-api.dev.env
 spring:
   config:
-    import: optional:file:config/projetoA-api.dev.env[.properties]
+    import: optional:file:config/brmusics-api.dev.env[.properties]

@@ -49,7 +49,7 @@ public class CadastroUsuarioService {
         usuario.setSenha(passwordEncoder.encode(input.getSenha()));
         if (input.getGrupos() != null && !input.getGrupos().isEmpty()) {
             if (input.getGrupos().size() > 1) {
-                throw new NegocioException("O usuário pode ter apenas um perfil (grupo) no Projeto A.");
+                throw new NegocioException("O usuário pode ter apenas um perfil (grupo) no BRMusics.");
             }
             usuario.setGrupos(new ArrayList<>(getGrupoService.findAllByUUID(input.getGrupos())));
         }
@@ -62,7 +62,7 @@ public class CadastroUsuarioService {
                 .orElseThrow(() -> new NegocioException("Usuário não encontrado."));
         List<UUID> gruposIds = input.gruposIds() != null ? input.gruposIds() : List.of();
         if (gruposIds.size() > 1) {
-            throw new NegocioException("O usuário pode ter apenas um perfil (grupo) no Projeto A.");
+            throw new NegocioException("O usuário pode ter apenas um perfil (grupo) no BRMusics.");
         }
         List<Grupo> grupos = gruposIds.isEmpty() ? List.of() : getGrupoService.findAllByUUID(gruposIds);
         validarUltimoAnalista(usuario, grupos);

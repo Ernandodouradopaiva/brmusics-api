@@ -14,8 +14,8 @@ public class SwaggerConfig {
     public OpenAPI openAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("Projeto A - Rest API")
-                        .description("Projeto A - REST API")
+                        .title("BRMusics - Rest API")
+                        .description("BRMusics - REST API")
                         .version("1.0"));
     }
 }
