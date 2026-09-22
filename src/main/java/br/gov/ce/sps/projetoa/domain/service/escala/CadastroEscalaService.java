@@ -207,7 +207,7 @@ public class CadastroEscalaService {
         return escalaAssembler.toModel(escala, ativas, alertas);
     }
 
-    static void ordenar(List<EscalaMusico> ativas) {
+    public static void ordenar(List<EscalaMusico> ativas) {
         ativas.sort(Comparator
                 .comparing((EscalaMusico em) -> em.getOrdem() == null ? 0 : em.getOrdem())
                 .thenComparing(em -> em.getId() == null ? 0L : em.getId()));

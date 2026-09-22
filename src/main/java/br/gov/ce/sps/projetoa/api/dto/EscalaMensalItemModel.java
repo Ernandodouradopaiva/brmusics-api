@@ -1,6 +1,7 @@
 package br.gov.ce.sps.projetoa.api.dto;
 
 import br.gov.ce.sps.projetoa.domain.model.enums.CelebracaoStatus;
+import br.gov.ce.sps.projetoa.domain.model.enums.CelebracaoTipo;
 import br.gov.ce.sps.projetoa.domain.model.enums.EscalaStatus;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,9 +24,11 @@ public class EscalaMensalItemModel {
     private String localNome;
     private String diaSemana;
     private CelebracaoStatus celebracaoStatus;
+    private CelebracaoTipo celebracaoTipo;
     private UUID escalaCodigo;
     private EscalaStatus escalaStatus;
     private int quantidadeMusicos;
     private List<EscalaMusicoModel> participacoes = new ArrayList<>();
+    private List<RepertorioItemModel> repertorio = new ArrayList<>();
     private List<String> alertas = new ArrayList<>();
 }

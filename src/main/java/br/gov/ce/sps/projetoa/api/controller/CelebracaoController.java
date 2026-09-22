@@ -1,16 +1,20 @@
 package br.gov.ce.sps.projetoa.api.controller;
 
 import br.gov.ce.sps.projetoa.api.assembler.GenericAssembler;
+import br.gov.ce.sps.projetoa.api.dto.CelebracaoCadastroModel;
 import br.gov.ce.sps.projetoa.api.dto.CelebracaoModelBasico;
 import br.gov.ce.sps.projetoa.api.input.CelebracaoInput;
+import br.gov.ce.sps.projetoa.api.input.ReplicarCelebracaoMesInput;
 import br.gov.ce.sps.projetoa.core.security.Permissoes;
 import br.gov.ce.sps.projetoa.domain.filter.CelebracaoFilter;
 import br.gov.ce.sps.projetoa.domain.model.Celebracao;
 import br.gov.ce.sps.projetoa.domain.service.celebracao.AtualizaCelebracaoService;
 import br.gov.ce.sps.projetoa.domain.service.celebracao.CadastroCelebracaoService;
+import br.gov.ce.sps.projetoa.domain.service.celebracao.CelebracaoCadastroResultado;
 import br.gov.ce.sps.projetoa.domain.service.celebracao.DeletaCelebracaoService;
 import br.gov.ce.sps.projetoa.domain.service.celebracao.GetCelebracaoService;
 import br.gov.ce.sps.projetoa.domain.service.celebracao.ListCelebracaoService;
+import br.gov.ce.sps.projetoa.domain.service.celebracao.ReplicarCelebracaoMesService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -44,6 +48,7 @@ public class CelebracaoController {
     private final CadastroCelebracaoService cadastroCelebracaoService;
     private final AtualizaCelebracaoService atualizaCelebracaoService;
     private final DeletaCelebracaoService deletaCelebracaoService;
+    private final ReplicarCelebracaoMesService replicarCelebracaoMesService;
     private final GenericAssembler genericAssembler;
 
     @PreAuthorize("hasAnyAuthority('" + Permissoes.Celebracao.LISTAR + "', '"
@@ -52,7 +57,7 @@ public class CelebracaoController {
     @GetMapping
     public Page<CelebracaoModelBasico> listar(
             CelebracaoFilter filtro,
-            @PageableDefault(size = 5, sort = {"data", "horaInicio"}, direction = Sort.Direction.DESC)
+            @PageableDefault(size = 5, sort = {"data", "horaInicio"}, direction = Sort.Direction.ASC)
             Pageable pageable) {
         Page<Celebracao> page = listCelebracaoService.listar(filtro, pageable);
         List<CelebracaoModelBasico> dto = Objects.requireNonNull(
@@ -69,9 +74,32 @@ public class CelebracaoController {
     @PreAuthorize("hasAuthority('" + Permissoes.Celebracao.CRIAR + "')")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public CelebracaoModelBasico adicionar(@Valid @RequestBody CelebracaoInput input) {
-        Celebracao salvo = cadastroCelebracaoService.salvar(input);
-        return genericAssembler.toModel(getCelebracaoService.findByCode(salvo.getCodigo()), CelebracaoModelBasico.class);
+    public CelebracaoCadastroModel adicionar(@Valid @RequestBody CelebracaoInput input) {
+        CelebracaoCadastroResultado resultado = cadastroCelebracaoService.salvar(input);
+        CelebracaoCadastroModel model = Objects.requireNonNull(
+                genericAssembler.toModel(
+                        getCelebracaoService.findByCode(resultado.referencia().getCodigo()),
+                        CelebracaoCadastroModel.class));
+        model.setQuantidadeGerada(resultado.quantidadeGerada());
+        model.setSerieCodigo(resultado.serieCodigo());
+        return model;
+    }
+
+    @PreAuthorize("hasAuthority('" + Permissoes.Celebracao.CRIAR + "')")
+    @PostMapping("/{codigo}/replicar-mes")
+    @ResponseStatus(HttpStatus.CREATED)
+    public CelebracaoCadastroModel replicarMes(
+            @PathVariable UUID codigo,
+            @Valid @RequestBody ReplicarCelebracaoMesInput input) {
+        CelebracaoCadastroResultado resultado =
+                replicarCelebracaoMesService.replicar(codigo, input.getAno(), input.getMes());
+        CelebracaoCadastroModel model = Objects.requireNonNull(
+                genericAssembler.toModel(
+                        getCelebracaoService.findByCode(resultado.referencia().getCodigo()),
+                        CelebracaoCadastroModel.class));
+        model.setQuantidadeGerada(resultado.quantidadeGerada());
+        model.setSerieCodigo(resultado.serieCodigo());
+        return model;
     }
 
     @PreAuthorize("hasAuthority('" + Permissoes.Celebracao.EDITAR + "')")

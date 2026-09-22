@@ -1,14 +1,20 @@
 package br.gov.ce.sps.projetoa.domain.service.escala;
 
 import br.gov.ce.sps.projetoa.api.assembler.EscalaAssembler;
+import br.gov.ce.sps.projetoa.api.assembler.RepertorioAssembler;
 import br.gov.ce.sps.projetoa.api.dto.EscalaMensalItemModel;
+import br.gov.ce.sps.projetoa.api.dto.RepertorioItemModel;
 import br.gov.ce.sps.projetoa.domain.exception.NegocioException;
 import br.gov.ce.sps.projetoa.domain.model.Celebracao;
 import br.gov.ce.sps.projetoa.domain.model.Escala;
 import br.gov.ce.sps.projetoa.domain.model.EscalaMusico;
+import br.gov.ce.sps.projetoa.domain.model.Repertorio;
+import br.gov.ce.sps.projetoa.domain.model.RepertorioItem;
 import br.gov.ce.sps.projetoa.domain.repository.CelebracaoRepository;
 import br.gov.ce.sps.projetoa.domain.repository.EscalaMusicoRepository;
 import br.gov.ce.sps.projetoa.domain.repository.EscalaRepository;
+import br.gov.ce.sps.projetoa.domain.repository.RepertorioItemRepository;
+import br.gov.ce.sps.projetoa.domain.repository.RepertorioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,8 +39,11 @@ public class ListEscalaMensalService {
     private final CelebracaoRepository celebracaoRepository;
     private final EscalaRepository escalaRepository;
     private final EscalaMusicoRepository escalaMusicoRepository;
+    private final RepertorioRepository repertorioRepository;
+    private final RepertorioItemRepository repertorioItemRepository;
     private final CadastroEscalaService cadastroEscalaService;
     private final EscalaAssembler escalaAssembler;
+    private final RepertorioAssembler repertorioAssembler;
 
     @Transactional(readOnly = true)
     public List<EscalaMensalItemModel> listar(int ano, int mes) {
@@ -63,6 +72,16 @@ public class ListEscalaMensalService {
         cadastroEscalaService.hidratarInstrumentosDoMusico(todasAtivas);
         ativasPorEscala.values().forEach(CadastroEscalaService::ordenar);
 
+        Map<Long, Repertorio> repertorioPorCelebracao = repertorioRepository
+                .findComCelebracaoByCelebracaoIdIn(celebracaoIds)
+                .stream()
+                .collect(Collectors.toMap(r -> r.getCelebracao().getId(), r -> r, (a, b) -> a));
+        List<Long> repertorioIds = repertorioPorCelebracao.values().stream().map(Repertorio::getId).toList();
+        Map<Long, List<RepertorioItem>> itensPorRepertorio = repertorioIds.isEmpty()
+                ? Map.of()
+                : repertorioItemRepository.findAtivosComMusicaByRepertorioIdIn(repertorioIds).stream()
+                .collect(Collectors.groupingBy(ri -> ri.getRepertorio().getId()));
+
         List<EscalaMusico> conflitos = conflitosDoMes(todasAtivas, celebracoes);
 
         List<EscalaMensalItemModel> itens = new ArrayList<>();
@@ -72,7 +91,12 @@ public class ListEscalaMensalService {
                     ? List.of()
                     : ativasPorEscala.getOrDefault(escala.getId(), List.of());
             List<String> alertas = montarAlertas(celebracao, escala, ativas, conflitos);
-            itens.add(escalaAssembler.toMensalItem(celebracao, escala, ativas, alertas));
+            Repertorio repertorio = repertorioPorCelebracao.get(celebracao.getId());
+            List<RepertorioItemModel> repertorioItens = repertorio == null
+                    ? List.of()
+                    : repertorioAssembler.toItemModels(
+                            itensPorRepertorio.getOrDefault(repertorio.getId(), List.of()));
+            itens.add(escalaAssembler.toMensalItem(celebracao, escala, ativas, alertas, repertorioItens));
         }
         return itens;
     }

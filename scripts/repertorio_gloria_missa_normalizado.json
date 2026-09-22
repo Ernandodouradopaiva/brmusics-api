@@ -1,0 +1,86 @@
+[
+  {
+    "titulo": "GLÓRIA - TEXTO OFICIAL DA MISSA",
+    "autor": "Matheus Domingues",
+    "interpreteReferencia": "Músicas Católicas",
+    "tomPadrao": "G",
+    "categoriaLiturgica": "GLORIA",
+    "letra": null,
+    "cifra": "https://www.cifraclub.com.br/catolicas/gloria-texto-oficial-da-missa/",
+    "linkReferencia": null,
+    "observacao": "Hino do Glória da Missa; texto litúrgico do Ordinário.",
+    "ativo": true
+  },
+  {
+    "titulo": "GLÓRIA A DEUS NAS ALTURAS",
+    "autor": "Vanessa L. Piaz",
+    "interpreteReferencia": "Vanessa L. Piaz",
+    "tomPadrao": "A",
+    "categoriaLiturgica": "GLORIA",
+    "letra": null,
+    "cifra": null,
+    "linkReferencia": "https://www.youtube.com/watch?v=iaF3jVSVGSg",
+    "observacao": "Hino do Glória; melodia sobre o texto do Missal Romano.",
+    "ativo": true
+  },
+  {
+    "titulo": "GLÓRIA LITÚRGICO",
+    "autor": "Flavio Fonseca",
+    "interpreteReferencia": "Flavio Fonseca",
+    "tomPadrao": "E",
+    "categoriaLiturgica": "GLORIA",
+    "letra": null,
+    "cifra": "https://www.cifraclub.com.br/flavio-fonseca/canto-liturgico-de-gloria/",
+    "linkReferencia": null,
+    "observacao": "Hino do Glória da Missa; texto litúrgico.",
+    "ativo": true
+  },
+  {
+    "titulo": "GLÓRIA A DEUS NAS ALTURAS (GLÓRIA)",
+    "autor": "Missal Romano; Marcos R. N. Da Matta; Joel Postma",
+    "interpreteReferencia": "CNBB",
+    "tomPadrao": null,
+    "categoriaLiturgica": "GLORIA",
+    "letra": null,
+    "cifra": "https://www.cifraclub.com.br/cnbb/gloria-a-deus-nas-alturas-gloria/",
+    "linkReferencia": null,
+    "observacao": "Hino do Glória; texto do Missal Romano.",
+    "ativo": true
+  },
+  {
+    "titulo": "GLÓRIA A DEUS (MISSA)",
+    "autor": "Obra de Maria",
+    "interpreteReferencia": "Obra de Maria",
+    "tomPadrao": "D",
+    "categoriaLiturgica": "GLORIA",
+    "letra": null,
+    "cifra": "https://www.cifraclub.com.br/obra-de-maria/gloria-a-deus-missa/",
+    "linkReferencia": null,
+    "observacao": "Hino do Glória destinado à celebração da Missa.",
+    "ativo": true
+  },
+  {
+    "titulo": "GLÓRIA - MISSA PASCAL",
+    "autor": "Pe. Sílvio Milanez",
+    "interpreteReferencia": "Pe. Sílvio Milanez",
+    "tomPadrao": null,
+    "categoriaLiturgica": "GLORIA",
+    "letra": "https://musicasparamissa.com.br/musica/gloria-pe-silvio-milanez/",
+    "cifra": null,
+    "linkReferencia": null,
+    "observacao": "Hino do Glória; Missa Pascal; texto do Missal Romano.",
+    "ativo": true
+  },
+  {
+    "titulo": "GLÓRIA",
+    "autor": "Frei Wanderson Luiz Freitas, O.Carm.",
+    "interpreteReferencia": "Frei Wanderson Luiz Freitas, O.Carm.",
+    "tomPadrao": null,
+    "categoriaLiturgica": "GLORIA",
+    "letra": "https://musicasparamissa.com.br/musica/gloria-oficina-da-musica-liturgica/",
+    "cifra": null,
+    "linkReferencia": null,
+    "observacao": "Hino de louvor da Missa; texto do Missal Romano.",
+    "ativo": true
+  }
+]

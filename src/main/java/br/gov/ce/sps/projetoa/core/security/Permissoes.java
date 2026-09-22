@@ -63,6 +63,48 @@ public final class Permissoes {
         public static final String GERAR = "relatorio-usuarios.gerar";
     }
 
+    public static final class RelatorioMusicas {
+        private RelatorioMusicas() {}
+        public static final String PAGINA = "relatorio-musicas.pagina";
+        public static final String GERAR = "relatorio-musicas.gerar";
+    }
+
+    public static final class RelatorioMusicos {
+        private RelatorioMusicos() {}
+        public static final String PAGINA = "relatorio-musicos.pagina";
+        public static final String GERAR = "relatorio-musicos.gerar";
+    }
+
+    public static final class RelatorioMusicosEscala {
+        private RelatorioMusicosEscala() {}
+        public static final String PAGINA = "relatorio-musicos-escala.pagina";
+        public static final String GERAR = "relatorio-musicos-escala.gerar";
+    }
+
+    public static final class RelatorioEscalas {
+        private RelatorioEscalas() {}
+        public static final String PAGINA = "relatorio-escalas.pagina";
+        public static final String GERAR = "relatorio-escalas.gerar";
+    }
+
+    public static final class RelatorioRepertorios {
+        private RelatorioRepertorios() {}
+        public static final String PAGINA = "relatorio-repertorios.pagina";
+        public static final String GERAR = "relatorio-repertorios.gerar";
+    }
+
+    public static final class RelatorioCelebracoesMes {
+        private RelatorioCelebracoesMes() {}
+        public static final String PAGINA = "relatorio-celebracoes-mes.pagina";
+        public static final String GERAR = "relatorio-celebracoes-mes.gerar";
+    }
+
+    public static final class RelatorioMusicosFuncoes {
+        private RelatorioMusicosFuncoes() {}
+        public static final String PAGINA = "relatorio-musicos-funcoes.pagina";
+        public static final String GERAR = "relatorio-musicos-funcoes.gerar";
+    }
+
     public static final class Musico {
         private Musico() {}
         public static final String RECURSO = "musico";
@@ -73,6 +115,16 @@ public final class Permissoes {
         public static final String CRIAR = "musico.criar";
         public static final String EDITAR = "musico.editar";
         public static final String EXCLUIR = "musico.excluir";
+    }
+
+    public static final class Frequencia {
+        private Frequencia() {}
+        public static final String RECURSO = "frequencia";
+        public static final String MENU = "frequencia.menu";
+        public static final String PAGINA = "frequencia.pagina";
+        public static final String LISTAR = "frequencia.listar";
+        public static final String VISUALIZAR = "frequencia.visualizar";
+        public static final String EDITAR = "frequencia.editar";
     }
 
     public static final class Instrumento {

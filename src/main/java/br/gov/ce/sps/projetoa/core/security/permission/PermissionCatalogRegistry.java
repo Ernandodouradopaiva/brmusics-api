@@ -39,10 +39,23 @@ public final class PermissionCatalogRegistry {
         readOnlyUi(list, "relatorios", "relatorio-usuarios", "Relatório de usuários", order);
         order += 10;
         list.add(def("relatorio-usuarios.gerar", "relatorios", "relatorio-usuarios", "gerar", "Gerar PDF — Relatório de usuários", order++));
-        order += 10;
+        order += 5;
+        addRelatorio(list, "relatorio-musicas", "Relatório de músicas", order); order += 10;
+        addRelatorio(list, "relatorio-musicos", "Relatório de músicos", order); order += 10;
+        addRelatorio(list, "relatorio-musicos-escala", "Relatório de músicos por escala", order); order += 10;
+        addRelatorio(list, "relatorio-escalas", "Relatório de escalas", order); order += 10;
+        addRelatorio(list, "relatorio-repertorios", "Relatório de repertórios", order); order += 10;
+        addRelatorio(list, "relatorio-celebracoes-mes", "Relatório de celebrações por mês", order); order += 10;
+        addRelatorio(list, "relatorio-musicos-funcoes", "Relatório de músicos por funções e instrumentos", order); order += 10;
 
         crudUi(list, "brmusic", "musico", "Músicos", order);
         order += 20;
+        list.add(def("frequencia.menu", "brmusic", "frequencia", "menu", "Menu — Frequência", order++));
+        list.add(def("frequencia.pagina", "brmusic", "frequencia", "pagina", "Página — Frequência", order++));
+        list.add(def("frequencia.listar", "brmusic", "frequencia", "listar", "Listar — Frequência", order++));
+        list.add(def("frequencia.visualizar", "brmusic", "frequencia", "visualizar", "Visualizar — Frequência", order++));
+        list.add(def("frequencia.editar", "brmusic", "frequencia", "editar", "Editar — Frequência", order++));
+        order += 10;
         crudUi(list, "brmusic", "instrumento", "Instrumentos e funções", order);
         order += 20;
         crudUi(list, "brmusic", "local", "Locais", order);
@@ -87,6 +100,11 @@ public final class PermissionCatalogRegistry {
         list.add(def(recurso + ".criar", modulo, recurso, "criar", "Criar — " + label, o++));
         list.add(def(recurso + ".editar", modulo, recurso, "editar", "Editar — " + label, o++));
         list.add(def(recurso + ".excluir", modulo, recurso, "excluir", "Excluir — " + label, o++));
+    }
+
+    private static void addRelatorio(List<PermissionDefinition> list, String recurso, String label, int baseOrder) {
+        readOnlyUi(list, "relatorios", recurso, label, baseOrder);
+        list.add(def(recurso + ".gerar", "relatorios", recurso, "gerar", "Gerar PDF — " + label, baseOrder + 5));
     }
 
     private static PermissionDefinition def(

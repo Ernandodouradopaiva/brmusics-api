@@ -20,6 +20,7 @@ public final class NavigationCatalogRegistry {
 
         roots.add(recurso("inicio", "Página inicial", o++));
         roots.add(recurso("musico", "Músicos", o++));
+        roots.add(recurso("frequencia", "Frequência", o++));
         roots.add(recurso("instrumento", "Instrumentos e funções", o++));
         roots.add(recurso("musica", "Músicas", o++));
         roots.add(recurso("local", "Locais", o++));
@@ -33,7 +34,14 @@ public final class NavigationCatalogRegistry {
                 recurso("permissao", "Permissões", 2))));
         roots.add(grupo("relatorios", "Relatórios", o++, List.of(
                 recurso("relatorio", "Relatórios", 0),
-                recurso("relatorio-usuarios", "Usuários", 1))));
+                recurso("relatorio-usuarios", "Usuários", 1),
+                recurso("relatorio-musicas", "Músicas", 2),
+                recurso("relatorio-musicos", "Músicos", 3),
+                recurso("relatorio-musicos-escala", "Músicos por escala", 4),
+                recurso("relatorio-escalas", "Escalas", 5),
+                recurso("relatorio-repertorios", "Repertórios", 6),
+                recurso("relatorio-celebracoes-mes", "Celebrações por mês", 7),
+                recurso("relatorio-musicos-funcoes", "Músicos por funções", 8))));
 
         return roots;
     }

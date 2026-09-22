@@ -1,0 +1,60 @@
+-- Seed a partir de repertorio_comunhao_missa.json (idempotente por titulo).
+INSERT INTO musica (
+    codigo, titulo, autor, interprete_referencia, tom_padrao, categoria_liturgica,
+    letra, cifra, link_referencia, observacao, ativo, data_cadastro, data_atualizacao
+)
+SELECT gen_random_uuid(), v.titulo, v.autor, v.interprete, v.tom, v.categoria,
+       v.letra, v.cifra, v.link, v.observacao, TRUE, NOW(), NOW()
+FROM (VALUES
+    ('ALMA DE CRISTO', 'Gabriela De Sa; Amanda Pinheiro; Wilde Fabio; Leozany; Davidson Silva; Dudu Cardoso; Guilherme Pontes; Keciane Lima; Yuri Costa; Justine Lafferriere; Guto Cesar', 'Comunidade Católica Shalom', 'C', 'COMUNHAO', NULL, 'https://www.cifraclub.com.br/comunidade-catolica-shalom/alma-de-cristo/', NULL, 'Comunhão / oração eucarística após receber o Corpo de Cristo'),
+    ('VERBUM PANIS', 'Ministério Amor e Adoração', 'Ministério Amor e Adoração', 'Em', 'COMUNHAO', 'https://www.letras.mus.br/ministerio-amor-e-adoracao/1943039/', 'https://www.cifraclub.com.br/ministerio-amor-e-adoracao/verbum-panis/', NULL, 'Comunhão / presença eucarística de Cristo, Verbo e Pão'),
+    ('SACRAMENTO DA COMUNHÃO', 'Nelsinho Corrêa', 'Nelsinho Corrêa', 'D', 'COMUNHAO', NULL, 'https://www.cifraclub.com.br/nelsinho-correa/sacramento-da-comunhao/', NULL, 'Comunhão / presença de Cristo no Sacramento'),
+    ('COMO ÉS LINDO', 'Walmir Alencar; Fabio De Melo', 'Vida Reluz', 'D', 'COMUNHAO', NULL, 'https://www.cifraclub.com.br/vida-reluz/como-es-lindo/', NULL, 'Comunhão / mesa e presença eucarística'),
+    ('NA COMUNHÃO TE ENTREGAS A MIM', 'Vida Reluz', 'Vida Reluz', 'C', 'COMUNHAO', NULL, 'https://www.cifraclub.com.br/vida-reluz/na-comunhao-te-entregas-a-mim/', NULL, 'Comunhão / entrega de Cristo na Eucaristia'),
+    ('NA MESA SAGRADA', 'Canção Nova', 'Canção Nova', 'F', 'COMUNHAO', NULL, 'https://www.cifraclub.com.br/cancao-nova/na-mesa-sagrada/', NULL, 'Comunhão / unidade, pão e fraternidade'),
+    ('O PÃO DA VIDA - COMUNHÃO', 'Músicas Católicas', 'Músicas Católicas', 'D', 'COMUNHAO', NULL, 'https://www.cifraclub.com.br/catolicas/o-pao-da-vida-comunhao/', NULL, 'Comunhão / Pão da Vida e unidade com Cristo e os irmãos'),
+    ('EU SOU O PÃO VIVO DESCIDO DO CÉU', 'Pe. José Weber, SVD', 'Pe. José Weber, SVD', NULL, 'COMUNHAO', NULL, NULL, 'https://www.youtube.com/watch?v=H1AS7mDY1ag', 'Comunhão / Corpus Christi / Jo 6'),
+    ('QUEM COME MINHA CARNE', 'Paulo Neto', 'Paulo Neto', NULL, 'COMUNHAO', NULL, NULL, 'https://www.youtube.com/watch?v=bTObIitD9DU', 'Comunhão / Corpus Christi / discurso do Pão da Vida'),
+    ('EUCARISTIA - DOM DE DEUS', 'Ir. Míria T. Kolling', 'Ir. Míria T. Kolling', NULL, 'COMUNHAO', NULL, NULL, 'https://www.youtube.com/watch?v=auRB0z8EC6M', 'Comunhão / Eucaristia'),
+    ('COMAM DO PÃO', 'Jacques Berthier', 'Jacques Berthier', NULL, 'COMUNHAO', NULL, NULL, NULL, 'Comunhão / Salmo 18 / Eucaristia'),
+    ('NÓS SOMOS MUITOS', 'Pe. José Weber, SVD', 'Pe. José Weber, SVD', NULL, 'COMUNHAO', NULL, NULL, 'https://www.youtube.com/watch?v=pNYJ9ELiW3c', 'Comunhão / unidade eclesial na Eucaristia'),
+    ('EM MEMÓRIA DE MIM', 'Cardeal Odilo Scherer', 'Cardeal Odilo Scherer', NULL, 'COMUNHAO', NULL, NULL, 'https://www.youtube.com/watch?v=K0v5Nv11QI8', 'Comunhão / memória eucarística'),
+    ('PRESENÇA REAL', 'Marcos da Matta', 'Marcos da Matta', NULL, 'COMUNHAO', NULL, NULL, 'https://www.youtube.com/watch?v=1TK8xeljCFw', 'Comunhão / presença real de Cristo na Eucaristia'),
+    ('EU SOU O PÃO', 'Pe. José Cândido da Silva', 'CNBB / Música Litúrgica', NULL, 'COMUNHAO', NULL, NULL, 'https://www.youtube.com/watch?v=bmsE4JKdlEY', 'Comunhão / Pão da Vida / Hinário Litúrgico da CNBB'),
+    ('UM CÁLICE FOI LEVANTADO', 'Reginaldo Veloso', 'Reginaldo Veloso', NULL, 'COMUNHAO', NULL, NULL, 'https://www.youtube.com/watch?v=1rRKBzmG0xI', 'Comunhão / cálice e ação de graças / Hinário Litúrgico da CNBB'),
+    ('O PÃO DA VIDA, A COMUNHÃO', 'Pe. José Weber, SVD', 'Pe. José Weber, SVD', NULL, 'COMUNHAO', NULL, NULL, 'https://www.youtube.com/watch?v=jZVqI9Fo0jI', 'Comunhão / Pão da Vida / Hinário Litúrgico da CNBB'),
+    ('SEDE DE DEUS', 'José Raimundo Galvão', 'José Raimundo Galvão', NULL, 'COMUNHAO', NULL, NULL, 'https://www.youtube.com/watch?v=1OS-NC4SzYg', 'Comunhão / desejo de Deus'),
+    ('VÓS SOIS O CAMINHO, A VERDADE, A VIDA', 'Pe. A. Vigne', 'CNBB / Música Litúrgica', NULL, 'COMUNHAO', NULL, NULL, 'https://www.youtube.com/watch?v=bW0aOJBPKtc', 'Comunhão / Cristo caminho, verdade e vida'),
+    ('NÓS TE DAMOS MUITAS GRAÇAS', 'Antônio Prado; Frei Joel Postma, OFM', 'CNBB / Música Litúrgica', NULL, 'COMUNHAO', NULL, NULL, 'https://www.youtube.com/watch?v=rCL8p7FzQ74', 'Comunhão / ação de graças / Hinário Litúrgico da CNBB'),
+    ('O PÃO DE DEUS É O PÃO DA VIDA', 'Pe. José Weber, SVD', 'Pe. José Weber, SVD', NULL, 'COMUNHAO', NULL, NULL, 'https://www.youtube.com/watch?v=8PdnGv0JC_c', 'Comunhão / Pão da Vida / Hinário Litúrgico da CNBB'),
+    ('O SENHOR PODEROSO EM AMOR', 'Reginaldo Veloso', 'Reginaldo Veloso', NULL, 'COMUNHAO', NULL, NULL, 'https://www.youtube.com/watch?v=Q-QSiLs3-GY', 'Comunhão / convite ao banquete eucarístico'),
+    ('DO CÉU DESCEU A CHUVA', 'D. Marcos Barbosa; Maximiliano Hellmann', 'CNBB / Música Litúrgica', NULL, 'COMUNHAO', NULL, NULL, 'https://www.youtube.com/watch?v=RBy06HNc7uY', 'Comunhão / alimento vindo do céu'),
+    ('NÃO EXISTE AMOR SEM ENTREGA', 'Fr. Gotzon Aulestia; versão: Ir. Míria T. Kolling', 'Ir. Míria T. Kolling', NULL, 'COMUNHAO', NULL, NULL, 'https://www.youtube.com/watch?v=b9AkVgCfo8g', 'Comunhão / entrega e amor eucarístico'),
+    ('EIS JESUS, O PÃO DA VIDA', 'Prof. Saraiva', 'CNBB / Música Litúrgica', NULL, 'COMUNHAO', NULL, NULL, NULL, 'Comunhão / Jesus, Pão da Vida'),
+    ('O PAI ENVIOU SEU FILHO QUERIDO', 'Pe. José Freitas Campos', 'Pe. José Freitas Campos', NULL, 'COMUNHAO', NULL, NULL, 'https://www.youtube.com/watch?v=pFQejP-b8EI', 'Comunhão / Cristo enviado pelo Pai'),
+    ('A FORÇA DA EUCARISTIA', 'Ir. Míria T. Kolling', 'Ir. Míria T. Kolling', NULL, 'COMUNHAO', NULL, NULL, 'https://www.youtube.com/watch?v=czSDh21BdEQ', 'Comunhão / força da Eucaristia'),
+    ('PORQUE SOIS FILHOS', 'Frei Wanderson Luiz Freitas, O.Carm.', 'Frei Wanderson Luiz Freitas, O.Carm.', NULL, 'COMUNHAO', NULL, NULL, 'https://www.youtube.com/watch?v=c10OZx3bMrQ', 'Comunhão / Santíssima Trindade / Gl 4,6'),
+    ('DEUS ENVIOU AOS NOSSOS CORAÇÕES', 'Paulo Neto', 'Paulo Neto', NULL, 'COMUNHAO', NULL, NULL, 'https://www.youtube.com/watch?v=AyYzfppRLpY', 'Comunhão / Santíssima Trindade'),
+    ('VOCÊS SÃO DE DEUS, FILHOS', 'Pe. Geraldo Leite', 'Pe. Geraldo Leite', NULL, 'COMUNHAO', NULL, NULL, 'https://www.youtube.com/watch?v=kQkLb16RyjY', 'Comunhão / Santíssima Trindade / Hinário Litúrgico da CNBB'),
+    ('TUDO O QUE É DO PAI, TAMBÉM É MEU', 'Pe. José Weber, SVD', 'Pe. José Weber, SVD', NULL, 'COMUNHAO', NULL, NULL, 'https://www.youtube.com/watch?v=8LbG53_aVLw', 'Comunhão / Santíssima Trindade / Jo 16,15'),
+    ('SÃO FILHOS DE DEUS', 'Reginaldo Veloso; José Américo Lacerda Jr.; Geraldo Leite Bastos', 'CNBB / Música Litúrgica', NULL, 'COMUNHAO', NULL, NULL, 'https://www.youtube.com/watch?v=v-hSpzp-na8', 'Comunhão / Santíssima Trindade / Gl 4,6'),
+    ('O SENHOR SUBIU AO CÉU, ALELUIA!', 'Reginaldo Veloso', 'Reginaldo Veloso', NULL, 'COMUNHAO', NULL, NULL, NULL, 'Comunhão / Ascensão do Senhor / Salmo 68(67)'),
+    ('SUSCITAI, Ó SENHOR DEUS', 'Frei Joel Postma, OFM', 'Frei Joel Postma, OFM', NULL, 'COMUNHAO', NULL, NULL, NULL, 'Comunhão / Ascensão do Senhor / Salmo 68(67)'),
+    ('A TERRA APAVORADA EMUDECEU', 'Frei Joel Postma, OFM', 'Frei Joel Postma, OFM', NULL, 'COMUNHAO', NULL, NULL, NULL, 'Comunhão / Ascensão do Senhor'),
+    ('CONVOSCO ESTAREI TODOS OS DIAS', 'Pe. José Weber, SVD', 'Pe. José Weber, SVD', NULL, 'COMUNHAO', NULL, NULL, NULL, 'Comunhão / Ascensão do Senhor'),
+    ('FAZEI MEUS DISCÍPULOS', 'Pe. José Weber, SVD', 'Pe. José Weber, SVD', NULL, 'COMUNHAO', NULL, NULL, NULL, 'Comunhão / Ascensão do Senhor'),
+    ('QUANDO EU FOR EXALTADO', 'Missal Romano e Lecionário; música: Frei Wanderson Luiz Freitas, O.Carm.', 'Frei Wanderson Luiz Freitas, O.Carm.', NULL, 'COMUNHAO', NULL, NULL, NULL, 'Comunhão / Exaltação da Santa Cruz / Jo 12,32'),
+    ('PELO SINAL DA SANTA CRUZ', 'Gradual Romano e Liturgia das Horas; música: Gílson Celerino', 'Gílson Celerino', NULL, 'COMUNHAO', NULL, NULL, NULL, 'Comunhão / Exaltação da Santa Cruz'),
+    ('NA PÁSCOA DA NOVA ALIANÇA', 'Frei José Moacyr Cadenassi, OFMCap; música: Ir. Míria T. Kolling', 'Ir. Míria T. Kolling', NULL, 'COMUNHAO', NULL, NULL, NULL, 'Comunhão / Exaltação da Santa Cruz'),
+    ('JESUS CRISTO, SENDO DEUS', 'Reginaldo Veloso', 'Reginaldo Veloso', NULL, 'COMUNHAO', NULL, NULL, NULL, 'Comunhão / Exaltação da Santa Cruz / Fl 2,6-11'),
+    ('TODO O QUE VIVE E CRÊ EM MIM', 'Pe. José Weber, SVD', 'Pe. José Weber, SVD', NULL, 'COMUNHAO', NULL, NULL, NULL, 'Comunhão / Exaltação da Santa Cruz / Jo 11,26'),
+    ('TANTO DEUS AMOU O MUNDO', 'Pe. José Weber, SVD', 'Pe. José Weber, SVD', NULL, 'COMUNHAO', NULL, NULL, NULL, 'Comunhão / Exaltação da Santa Cruz / Jo 3,16'),
+    ('JESUS CRISTO MORREU POR TODOS NÓS', 'Pe. José Weber, SVD', 'Pe. José Weber, SVD', NULL, 'COMUNHAO', NULL, NULL, NULL, 'Comunhão / Exaltação da Santa Cruz / 2Cor 5,15'),
+    ('GRAÇAS VOS DOU, SENHOR', 'Frei Wanderson Luiz Freitas, O.Carm.', 'Frei Wanderson Luiz Freitas, O.Carm.', NULL, 'COMUNHAO', NULL, NULL, NULL, 'Comunhão / Santos Arcanjos / Salmo 137'),
+    ('ANJOS DO SENHOR', 'Paulo Neto', 'Paulo Neto', NULL, 'COMUNHAO', NULL, NULL, NULL, 'Comunhão / Santos Arcanjos / Daniel 3'),
+    ('VÓS TODAS AS OBRAS DO SENHOR', 'Joseph Gelineau', 'Joseph Gelineau', NULL, 'COMUNHAO', NULL, NULL, NULL, 'Comunhão / Santos Arcanjos / Daniel 3,57-88'),
+    ('BENDEZEI O SENHOR NOS ALTOS CÉUS E NAS ALTURAS', 'Joseph Gelineau', 'Joseph Gelineau', NULL, 'COMUNHAO', NULL, NULL, NULL, 'Comunhão / Santos Arcanjos / Salmo 148')
+) AS v(titulo, autor, interprete, tom, categoria, letra, cifra, link, observacao)
+WHERE NOT EXISTS (
+    SELECT 1 FROM musica m WHERE LOWER(TRIM(m.titulo)) = LOWER(TRIM(v.titulo))
+);

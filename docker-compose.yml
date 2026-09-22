@@ -3,7 +3,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: ernandopaiva/brmusics-api:1.0.3
+    image: ernandopaiva/brmusics-api:1.0.4
     container_name: brmusics-api
     hostname: brmusics-api
     ports:

@@ -9,12 +9,12 @@ import org.apache.pdfbox.pdmodel.PDPageContentStream;
  * Facade dos ícones de relatório PDF — delega para Font Awesome Free Solid.
  * Mapeamento alinhado a {@code src/shared/report-icons.ts} no frontend.
  */
-final class RelatorioPdfIcons {
+public final class RelatorioPdfIcons {
 
     private RelatorioPdfIcons() {}
 
     /** Tipos usados nos geradores de relatório (mapeiam para {@link RelatorioPdfFontAwesome.Icon}). */
-    enum Tipo {
+    public enum Tipo {
         CALENDARIO(RelatorioPdfFontAwesome.Icon.CALENDAR_DAYS),
         PERIODO(RelatorioPdfFontAwesome.Icon.CALENDAR_DAYS),
         PESSOAS(RelatorioPdfFontAwesome.Icon.USERS),

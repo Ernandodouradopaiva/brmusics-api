@@ -17,6 +17,7 @@ import br.gov.ce.sps.projetoa.domain.service.escala.DuplicarEscalaAnteriorServic
 import br.gov.ce.sps.projetoa.domain.service.escala.GetEscalaService;
 import br.gov.ce.sps.projetoa.domain.service.escala.ListEscalaMensalService;
 import br.gov.ce.sps.projetoa.domain.service.escala.PublicarEscalaMensalService;
+import br.gov.ce.sps.projetoa.domain.service.escala.PublicarEscalaService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -48,6 +49,7 @@ public class EscalaController {
     private final CopiarEscalaService copiarEscalaService;
     private final DuplicarEscalaAnteriorService duplicarEscalaAnteriorService;
     private final PublicarEscalaMensalService publicarEscalaMensalService;
+    private final PublicarEscalaService publicarEscalaService;
 
     @PreAuthorize("hasAuthority('" + Permissoes.Escala.LISTAR + "')")
     @GetMapping("/mensal")
@@ -66,6 +68,12 @@ public class EscalaController {
     @ResponseStatus(HttpStatus.CREATED)
     public EscalaPublicacaoModel publicar(@Valid @RequestBody PublicarEscalaMensalInput input) {
         return publicarEscalaMensalService.publicar(input.getAno(), input.getMes());
+    }
+
+    @PreAuthorize("hasAnyAuthority('" + Permissoes.Escala.PUBLICAR + "', '" + Permissoes.Escala.EDITAR + "')")
+    @PostMapping("/{codigo}/publicar")
+    public EscalaModel publicarUma(@PathVariable UUID codigo) {
+        return publicarEscalaService.publicar(codigo);
     }
 
     @PreAuthorize("hasAuthority('" + Permissoes.Escala.VISUALIZAR + "')")

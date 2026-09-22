@@ -62,12 +62,12 @@ class MinhaEscalaServiceTest {
     }
 
     @Test
-    void agendaIncluiSomenteEscalasPublicadasDoMusicoAutenticado() {
+    void agendaIncluiEscalasPublicadasEEmRascunhoDoMusicoAutenticado() {
         Escala escalaJoao = escala(10L, UUID.randomUUID(), LocalDate.now().plusDays(3), "Missa Dominical");
         EscalaMusico participacaoJoao = participacao(escalaJoao, joao, "Violão", 1);
         EscalaMusico participacaoAna = participacao(escalaJoao, ana, "Vocal", 0);
 
-        when(escalaMusicoRepository.findPublicadasDoMusico(1L)).thenReturn(List.of(participacaoJoao));
+        when(escalaMusicoRepository.findVisiveisDoMusico(1L)).thenReturn(List.of(participacaoJoao));
         when(escalaMusicoRepository.findAtivasComMusicoEInstrumentoByEscalaIdIn(List.of(10L)))
                 .thenReturn(List.of(participacaoAna, participacaoJoao));
 
@@ -76,9 +76,26 @@ class MinhaEscalaServiceTest {
         assertThat(agenda.getNomeMusico()).isEqualTo("João Silva");
         assertThat(agenda.getProxima()).isNotNull();
         assertThat(agenda.getProxima().getMinhaFuncao()).isEqualTo("Violão");
+        assertThat(agenda.getProxima().getStatus()).isEqualTo("PUBLICADA");
         assertThat(agenda.getProxima().getEquipe()).extracting("musicoNome")
                 .containsExactly("Ana", "João Silva");
         assertThat(agenda.getProximas()).isEmpty();
+    }
+
+    @Test
+    void agendaIncluiRascunhoQuandoMusicoEstaNaEquipe() {
+        Escala rascunho = escala(22L, UUID.randomUUID(), LocalDate.now().plusDays(2), "Missa em rascunho");
+        rascunho.setStatus(EscalaStatus.RASCUNHO);
+        EscalaMusico participacao = participacao(rascunho, joao, "Vocal", 0);
+        when(escalaMusicoRepository.findVisiveisDoMusico(1L)).thenReturn(List.of(participacao));
+        when(escalaMusicoRepository.findAtivasComMusicoEInstrumentoByEscalaIdIn(List.of(22L)))
+                .thenReturn(List.of(participacao));
+
+        MinhaEscalaAgendaModel agenda = service.agenda();
+
+        assertThat(agenda.getProxima()).isNotNull();
+        assertThat(agenda.getProxima().getTitulo()).isEqualTo("Missa em rascunho");
+        assertThat(agenda.getProxima().getStatus()).isEqualTo("RASCUNHO");
     }
 
     @Test
@@ -93,14 +110,21 @@ class MinhaEscalaServiceTest {
     }
 
     @Test
-    void buscarRecusaRascunhoMesmoQueOMusicoEstejaNaEquipe() {
+    void buscarPermiteRascunhoQuandoMusicoEstaNaEquipe() {
         UUID codigo = UUID.randomUUID();
         Escala rascunho = escala(21L, codigo, LocalDate.now().plusDays(1), "Rascunho");
         rascunho.setStatus(EscalaStatus.RASCUNHO);
+        EscalaMusico participacao = participacao(rascunho, joao, "Vocal", 0);
         when(escalaRepository.findComCelebracaoByCodigo(codigo)).thenReturn(Optional.of(rascunho));
+        when(escalaMusicoRepository.existsByEscala_IdAndMusico_IdAndAtivoTrue(21L, 1L)).thenReturn(true);
+        when(escalaMusicoRepository.findVisiveisDoMusico(1L)).thenReturn(List.of(participacao));
+        when(escalaMusicoRepository.findAtivasComMusicoEInstrumentoByEscalaIdIn(List.of(21L)))
+                .thenReturn(List.of(participacao));
 
-        assertThatThrownBy(() -> service.buscar(codigo))
-                .isInstanceOf(EntityNotFoundException.class);
+        MinhaEscalaItemModel item = service.buscar(codigo);
+
+        assertThat(item.getTitulo()).isEqualTo("Rascunho");
+        assertThat(item.getStatus()).isEqualTo("RASCUNHO");
     }
 
     @Test
@@ -109,7 +133,7 @@ class MinhaEscalaServiceTest {
         Escala futura = escala(12L, UUID.randomUUID(), LocalDate.now().plusDays(5), "Missa futura");
         EscalaMusico p1 = participacao(passada, joao, "Teclado", 0);
         EscalaMusico p2 = participacao(futura, joao, "Violão", 0);
-        when(escalaMusicoRepository.findPublicadasDoMusico(1L)).thenReturn(List.of(p1, p2));
+        when(escalaMusicoRepository.findVisiveisDoMusico(1L)).thenReturn(List.of(p1, p2));
         when(escalaMusicoRepository.findAtivasComMusicoEInstrumentoByEscalaIdIn(List.of(11L, 12L)))
                 .thenReturn(List.of(p1, p2));
 

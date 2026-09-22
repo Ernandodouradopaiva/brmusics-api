@@ -20,6 +20,17 @@ public final class MusicaSpec {
                 return builder.and(predicates.toArray(new Predicate[0]));
             }
 
+            if (StringUtils.hasText(filtro.getTermo())) {
+                String termo = filtro.getTermo().trim().toLowerCase();
+                String like = "%" + termo + "%";
+                predicates.add(builder.or(
+                        builder.like(builder.lower(root.get("titulo")), like),
+                        builder.like(builder.lower(builder.coalesce(root.get("letra"), "")), like),
+                        builder.like(builder.lower(builder.coalesce(root.get("autor"), "")), like),
+                        builder.like(builder.lower(builder.coalesce(root.get("interpreteReferencia"), "")), like)
+                ));
+            }
+
             if (StringUtils.hasText(filtro.getTitulo())) {
                 String termo = filtro.getTitulo().trim().toLowerCase();
                 predicates.add(builder.like(builder.lower(root.get("titulo")), "%" + termo + "%"));

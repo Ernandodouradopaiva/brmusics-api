@@ -74,7 +74,9 @@ public class MinhaEscalaService {
         Musico musico = musicoAutenticadoService.exigirMusicoVinculado();
         Escala escala = escalaRepository.findComCelebracaoByCodigo(escalaCodigo)
                 .orElseThrow(() -> new EntityNotFoundException(String.format(MSG_NAO_ENCONTRADO, escalaCodigo)));
-        if (escala.getStatus() != EscalaStatus.PUBLICADA
+        boolean statusVisivel = escala.getStatus() == EscalaStatus.PUBLICADA
+                || escala.getStatus() == EscalaStatus.RASCUNHO;
+        if (!statusVisivel
                 || !escalaMusicoRepository.existsByEscala_IdAndMusico_IdAndAtivoTrue(escala.getId(), musico.getId())) {
             throw new EntityNotFoundException(String.format(MSG_NAO_ENCONTRADO, escalaCodigo));
         }
@@ -89,7 +91,7 @@ public class MinhaEscalaService {
             return false;
         }
         return escalaRepository.findByCelebracao_Codigo(celebracaoCodigo)
-                .filter(e -> e.getStatus() == EscalaStatus.PUBLICADA)
+                .filter(e -> e.getStatus() == EscalaStatus.PUBLICADA || e.getStatus() == EscalaStatus.RASCUNHO)
                 .filter(e -> escalaMusicoRepository.existsByEscala_IdAndMusico_IdAndAtivoTrue(e.getId(), musico.getId()))
                 .isPresent();
     }
@@ -99,7 +101,7 @@ public class MinhaEscalaService {
             return List.of();
         }
         Map<Long, Celebracao> porId = new LinkedHashMap<>();
-        for (EscalaMusico em : escalaMusicoRepository.findPublicadasDoMusico(musico.getId())) {
+        for (EscalaMusico em : escalaMusicoRepository.findVisiveisDoMusico(musico.getId())) {
             Celebracao celebracao = em.getEscala() != null ? em.getEscala().getCelebracao() : null;
             if (celebracao != null && celebracao.getId() != null) {
                 porId.putIfAbsent(celebracao.getId(), celebracao);
@@ -109,7 +111,7 @@ public class MinhaEscalaService {
     }
 
     private List<MinhaEscalaItemModel> montarItens(Musico musico) {
-        List<EscalaMusico> minhas = escalaMusicoRepository.findPublicadasDoMusico(musico.getId());
+        List<EscalaMusico> minhas = escalaMusicoRepository.findVisiveisDoMusico(musico.getId());
         if (minhas.isEmpty()) {
             return List.of();
         }
@@ -148,6 +150,7 @@ public class MinhaEscalaService {
             item.setHoraFim(celebracao.getHoraFim());
             item.setDiaSemana(EscalaAssembler.diaSemana(celebracao));
             item.setLocalNome(celebracao.getLocal() != null ? celebracao.getLocal().getNome() : null);
+            item.setStatus(escala.getStatus() != null ? escala.getStatus().name() : null);
             item.setMinhaFuncao(funcoes(entry.getValue()));
             item.setRepertorioCodigo(repertorioPorCelebracao.get(celebracao.getId()));
             List<EscalaMusico> equipe = new ArrayList<>(equipePorEscala.getOrDefault(escala.getId(), List.of()));

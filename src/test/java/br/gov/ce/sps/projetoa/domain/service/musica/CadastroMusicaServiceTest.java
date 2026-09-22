@@ -73,6 +73,54 @@ class CadastroMusicaServiceTest {
     }
 
     @Test
+    void rejeitaLinkDaLetraSemProtocolo() {
+        MusicaInput input = new MusicaInput();
+        input.setTitulo("Santo");
+        input.setLetra("letras.mus.br/santo");
+
+        assertThatThrownBy(() -> service.salvar(input))
+                .isInstanceOf(NegocioException.class)
+                .hasMessage("O link da letra deve começar com http:// ou https://.");
+    }
+
+    @Test
+    void salvaLinkDaLetra() {
+        when(musicaRepository.save(any(Musica.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        MusicaInput input = new MusicaInput();
+        input.setTitulo("Santo");
+        input.setLetra("https://letras.mus.br/santo");
+
+        Musica salvo = service.salvar(input);
+
+        assertThat(salvo.getLetra()).isEqualTo("https://letras.mus.br/santo");
+    }
+
+    @Test
+    void rejeitaLinkDaCifraSemProtocolo() {
+        MusicaInput input = new MusicaInput();
+        input.setTitulo("Santo");
+        input.setCifra("drive.google.com/cifra");
+
+        assertThatThrownBy(() -> service.salvar(input))
+                .isInstanceOf(NegocioException.class)
+                .hasMessage("O link da cifra deve começar com http:// ou https://.");
+    }
+
+    @Test
+    void salvaLinkDaCifra() {
+        when(musicaRepository.save(any(Musica.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        MusicaInput input = new MusicaInput();
+        input.setTitulo("Santo");
+        input.setCifra("https://drive.google.com/cifra-santo");
+
+        Musica salvo = service.salvar(input);
+
+        assertThat(salvo.getCifra()).isEqualTo("https://drive.google.com/cifra-santo");
+    }
+
+    @Test
     void rejeitaTituloVazio() {
         MusicaInput input = new MusicaInput();
         input.setTitulo("   ");

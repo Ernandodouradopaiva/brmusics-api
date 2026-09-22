@@ -12,6 +12,7 @@ import br.gov.ce.sps.projetoa.domain.model.Musica;
 import br.gov.ce.sps.projetoa.domain.service.musica.AtualizaMusicaService;
 import br.gov.ce.sps.projetoa.domain.service.musica.CadastroMusicaService;
 import br.gov.ce.sps.projetoa.domain.service.musica.DeletaMusicaService;
+import br.gov.ce.sps.projetoa.domain.service.musica.ExportaMusicasCsvService;
 import br.gov.ce.sps.projetoa.domain.service.musica.GetMusicaService;
 import br.gov.ce.sps.projetoa.domain.service.musica.ListMusicaService;
 import jakarta.validation.Valid;
@@ -20,7 +21,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,6 +36,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -46,6 +51,7 @@ public class MusicaController {
     private final CadastroMusicaService cadastroMusicaService;
     private final AtualizaMusicaService atualizaMusicaService;
     private final DeletaMusicaService deletaMusicaService;
+    private final ExportaMusicasCsvService exportaMusicasCsvService;
     private final GenericAssembler genericAssembler;
 
     @PreAuthorize("hasAnyAuthority('"
@@ -78,6 +84,18 @@ public class MusicaController {
         List<MusicaModelBasico> dto = Objects.requireNonNull(
                 genericAssembler.toCollectionModel(page.getContent(), MusicaModelBasico.class));
         return new PageImpl<>(dto, page.getPageable(), page.getTotalElements());
+    }
+
+    @PreAuthorize("hasAuthority('" + Permissoes.Musica.LISTAR + "')")
+    @GetMapping(value = "/exportacao.csv", produces = "text/csv;charset=UTF-8")
+    public ResponseEntity<byte[]> exportarCsv() {
+        byte[] csv = exportaMusicasCsvService.exportar();
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"musicas.csv\"");
+        return ResponseEntity.ok()
+                .headers(headers)
+                .contentType(new MediaType("text", "csv", StandardCharsets.UTF_8))
+                .body(csv);
     }
 
     @PreAuthorize("hasAuthority('" + Permissoes.Musica.VISUALIZAR + "')")

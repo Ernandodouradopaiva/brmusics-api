@@ -1,5 +1,6 @@
 package br.gov.ce.sps.projetoa.config;
 
+import br.gov.ce.sps.projetoa.api.dto.CelebracaoCadastroModel;
 import br.gov.ce.sps.projetoa.api.dto.CelebracaoModelBasico;
 import br.gov.ce.sps.projetoa.api.dto.EstadoModelBasico;
 import br.gov.ce.sps.projetoa.api.dto.InstrumentoModelBasico;
@@ -81,6 +82,21 @@ public class ModelMapperConfig {
 				.setPostConverter(context -> {
 					Celebracao origem = context.getSource();
 					CelebracaoModelBasico destino = context.getDestination();
+					if (origem.getLocal() != null) {
+						destino.setLocalCodigo(origem.getLocal().getCodigo());
+						destino.setLocalNome(origem.getLocal().getNome());
+					}
+					return destino;
+				});
+
+		modelMapper.typeMap(Celebracao.class, CelebracaoCadastroModel.class)
+				.addMappings(mapper -> {
+					mapper.skip(CelebracaoCadastroModel::setLocalCodigo);
+					mapper.skip(CelebracaoCadastroModel::setLocalNome);
+				})
+				.setPostConverter(context -> {
+					Celebracao origem = context.getSource();
+					CelebracaoCadastroModel destino = context.getDestination();
 					if (origem.getLocal() != null) {
 						destino.setLocalCodigo(origem.getLocal().getCodigo());
 						destino.setLocalNome(origem.getLocal().getNome());

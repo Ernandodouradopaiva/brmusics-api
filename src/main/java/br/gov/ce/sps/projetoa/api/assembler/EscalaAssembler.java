@@ -3,6 +3,7 @@ package br.gov.ce.sps.projetoa.api.assembler;
 import br.gov.ce.sps.projetoa.api.dto.EscalaMensalItemModel;
 import br.gov.ce.sps.projetoa.api.dto.EscalaModel;
 import br.gov.ce.sps.projetoa.api.dto.EscalaMusicoModel;
+import br.gov.ce.sps.projetoa.api.dto.RepertorioItemModel;
 import br.gov.ce.sps.projetoa.domain.model.Celebracao;
 import br.gov.ce.sps.projetoa.domain.model.Escala;
 import br.gov.ce.sps.projetoa.domain.model.EscalaMusico;
@@ -40,6 +41,15 @@ public class EscalaAssembler {
             Escala escala,
             List<EscalaMusico> ativas,
             List<String> alertas) {
+        return toMensalItem(celebracao, escala, ativas, alertas, List.of());
+    }
+
+    public EscalaMensalItemModel toMensalItem(
+            Celebracao celebracao,
+            Escala escala,
+            List<EscalaMusico> ativas,
+            List<String> alertas,
+            List<RepertorioItemModel> repertorio) {
         EscalaMensalItemModel item = new EscalaMensalItemModel();
         item.setCelebracaoCodigo(celebracao.getCodigo());
         item.setTitulo(celebracao.getTitulo());
@@ -49,6 +59,7 @@ public class EscalaAssembler {
         item.setLocalNome(celebracao.getLocal() != null ? celebracao.getLocal().getNome() : null);
         item.setDiaSemana(diaSemana(celebracao));
         item.setCelebracaoStatus(celebracao.getStatus());
+        item.setCelebracaoTipo(celebracao.getTipo());
         if (escala != null) {
             item.setEscalaCodigo(escala.getCodigo());
             item.setEscalaStatus(escala.getStatus());
@@ -56,6 +67,7 @@ public class EscalaAssembler {
         List<EscalaMusicoModel> participacoes = ativas.stream().map(this::toParticipacao).toList();
         item.setParticipacoes(participacoes);
         item.setQuantidadeMusicos(participacoes.size());
+        item.setRepertorio(repertorio == null ? List.of() : List.copyOf(repertorio));
         item.setAlertas(alertas == null ? List.of() : List.copyOf(alertas));
         return item;
     }

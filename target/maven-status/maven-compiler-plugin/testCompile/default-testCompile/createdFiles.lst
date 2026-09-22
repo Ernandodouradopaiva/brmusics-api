@@ -15,7 +15,6 @@ br/gov/ce/sps/projetoa/domain/service/escala/CadastroEscalaServiceTest.class
 br/gov/ce/sps/projetoa/domain/service/repertorio/CadastroRepertorioServiceTest.class
 br/gov/ce/sps/projetoa/domain/service/local/CadastroLocalServiceTest.class
 br/gov/ce/sps/projetoa/domain/service/repertorio/DeletaRepertorioServiceTest.class
-br/gov/ce/sps/projetoa/ProjetoAApplicationTests.class
 br/gov/ce/sps/projetoa/domain/service/escala/PublicarEscalaMensalServiceTest.class
 br/gov/ce/sps/projetoa/domain/service/whatsapp/WhatsAppWebhookServiceTest.class
 br/gov/ce/sps/projetoa/domain/service/inicio/InicioDashboardServiceTest.class
@@ -27,10 +26,14 @@ br/gov/ce/sps/projetoa/infrastructure/whatsapp/WhatsAppPhoneFormatterTest.class
 br/gov/ce/sps/projetoa/domain/service/escala/EscalaPublicacaoComparadorTest.class
 br/gov/ce/sps/projetoa/domain/service/musica/CadastroMusicaServiceTest.class
 br/gov/ce/sps/projetoa/domain/service/whatsapp/WhatsAppPublicacaoNotificacaoResolverTest.class
+br/gov/ce/sps/projetoa/domain/service/celebracao/ReplicarCelebracaoMesServiceTest.class
+br/gov/ce/sps/projetoa/domain/service/escala/PublicarEscalaServiceTest.class
 br/gov/ce/sps/projetoa/domain/service/celebracao/CadastroCelebracaoServiceTest.class
 br/gov/ce/sps/projetoa/domain/service/musico/CadastroMusicoServiceTest.class
 br/gov/ce/sps/projetoa/domain/service/instrumento/CadastroInstrumentoServiceTest.class
 br/gov/ce/sps/projetoa/domain/service/escala/MinhaEscalaServiceTest.class
 br/gov/ce/sps/projetoa/domain/service/whatsapp/WhatsAppAlteracaoResolverTest.class
 br/gov/ce/sps/projetoa/infrastructure/util/TelefoneUtilsTest.class
+br/gov/ce/sps/projetoa/domain/service/musica/ExportaMusicasCsvServiceTest.class
 br/gov/ce/sps/projetoa/domain/service/musico/MusicoEscalaRegraTest.class
+br/gov/ce/sps/projetoa/BrmusicsApplicationTests.class

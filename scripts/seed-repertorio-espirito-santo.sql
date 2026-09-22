@@ -1,0 +1,52 @@
+-- Seed a partir de repertorio_espirito_santo.json (idempotente por titulo).
+INSERT INTO musica (
+    codigo, titulo, autor, interprete_referencia, tom_padrao, categoria_liturgica,
+    letra, cifra, link_referencia, observacao, ativo, data_cadastro, data_atualizacao
+)
+SELECT gen_random_uuid(), v.titulo, v.autor, v.interprete, v.tom, v.categoria,
+       v.letra, v.cifra, v.link, v.observacao, TRUE, NOW(), NOW()
+FROM (VALUES
+    ('ESPÍRITO SANTO', 'Renato Borges Neto; Kito Moura', 'Comunidade Católica Shalom', 'E', 'ESPIRITO_SANTO', NULL, 'https://www.cifraclub.com.br/comunidade-catolica-shalom/espirito-santo/', 'https://www.youtube.com/results?search_query=Comunidade+Cat%C3%B3lica+Shalom+ESP%C3%8DRITO+SANTO', 'Invocação ao Espírito Santo / Pentecostes / renovação'),
+    ('VEM, ESPÍRITO SANTO', 'Renato Borges Neto; Kito Moura', 'Comunidade Católica Shalom', 'F#', 'ESPIRITO_SANTO', NULL, 'https://www.cifraclub.com.br/comunidade-catolica-shalom/vem-espirito-santo/', 'https://www.youtube.com/results?search_query=Comunidade+Cat%C3%B3lica+Shalom+VEM%2C+ESP%C3%8DRITO+SANTO', 'Invocação ao Espírito Santo / oração e renovação'),
+    ('OH! ESPÍRITO SANTO', 'Almeida Neto', 'Comunidade Católica Shalom', 'E', 'ESPIRITO_SANTO', NULL, 'https://www.cifraclub.com.br/comunidade-catolica-shalom/oh-espirito-santo/', 'https://www.youtube.com/results?search_query=Comunidade+Cat%C3%B3lica+Shalom+OH%21+ESP%C3%8DRITO+SANTO', 'Invocação ao Espírito Santo / consolação e renovação'),
+    ('SANTO ESPÍRITO, SANTO ESPÍRITO', 'Comunidade Católica Shalom', 'Comunidade Católica Shalom', 'Am', 'ESPIRITO_SANTO', NULL, 'https://www.cifraclub.com.br/comunidade-catolica-shalom/santo-espirito-santo-espirito/', 'https://www.youtube.com/results?search_query=Comunidade+Cat%C3%B3lica+Shalom+SANTO+ESP%C3%8DRITO%2C+SANTO+ESP%C3%8DRITO', 'Invocação ao Espírito Santo / fogo e amor'),
+    ('A NÓS DESCEI, DIVINA LUZ', 'Reginaldo Veloso', 'CNBB / Música Litúrgica', NULL, 'ESPIRITO_SANTO', NULL, NULL, 'https://www.youtube.com/watch?v=UcAo7Nzf-mg', 'Pentecostes / invocação ao Espírito Santo'),
+    ('Ó VEM, DIVINO CRIADOR', 'Jaci Maraschin', 'CNBB / Música Litúrgica', NULL, 'ESPIRITO_SANTO', NULL, NULL, 'https://www.youtube.com/watch?v=C7Svq83HlYE', 'Pentecostes / invocação ao Espírito Criador'),
+    ('ESTAREMOS AQUI REUNIDOS', 'Ir. Míria T. Kolling; Pe. Lúcio Floro', 'CNBB / Música Litúrgica', NULL, 'ESPIRITO_SANTO', NULL, NULL, 'https://www.youtube.com/watch?v=0FwVj_5oPAM', 'Pentecostes / assembleia reunida no Espírito'),
+    ('O ESPÍRITO DO SENHOR', 'Reginaldo Veloso', 'CNBB / Música Litúrgica', NULL, 'ESPIRITO_SANTO', NULL, NULL, 'https://www.youtube.com/watch?v=-YdAuRjgUZU', 'Pentecostes / Espírito do Senhor'),
+    ('VEM E NÃO DEMORES', 'Estevão Bruyland', 'CNBB / Música Litúrgica', NULL, 'ESPIRITO_SANTO', NULL, NULL, 'https://www.youtube.com/watch?v=J4tr5vjOenw', 'Pentecostes / súplica ao Espírito Santo'),
+    ('SÚPLICA AO ESPÍRITO SANTO', 'Frei Luiz Turra', 'Frei Luiz Turra', NULL, 'ESPIRITO_SANTO', NULL, NULL, 'https://www.youtube.com/watch?v=fOKcVXWNszE', 'Pentecostes / súplica ao Espírito Santo'),
+    ('O ESPÍRITO DE DEUS, ALELUIA', 'José Raimundo', 'CNBB / Música Litúrgica', NULL, 'ESPIRITO_SANTO', NULL, NULL, 'https://www.youtube.com/results?search_query=CNBB+%2F+M%C3%BAsica+Lit%C3%BArgica+O+ESP%C3%8DRITO+DE+DEUS%2C+ALELUIA', 'Pentecostes / Espírito de Deus'),
+    ('ENVIAI O VOSSO ESPÍRITO, SENHOR', 'Frei Joel Postma, OFM', 'CNBB / Música Litúrgica', NULL, 'ESPIRITO_SANTO', NULL, NULL, 'https://www.youtube.com/watch?v=JeHCABENzq4', 'Pentecostes / Salmo 103(104)'),
+    ('ALELUIA, VINDE ESPÍRITO', 'Frei Joel Postma, OFM', 'CNBB / Música Litúrgica', NULL, 'ESPIRITO_SANTO', NULL, NULL, 'https://www.youtube.com/watch?v=7HdHVsBdE0w', 'Pentecostes / aclamação ao Evangelho'),
+    ('ALELUIA, VINDE, ESPÍRITO SANTO', 'Frei Fabreti, OFM', 'CNBB / Música Litúrgica', NULL, 'ESPIRITO_SANTO', NULL, NULL, 'https://www.youtube.com/watch?v=SlJDn4Tz-3c', 'Pentecostes / aclamação ao Evangelho'),
+    ('SUSCITAI, Ó SENHOR DEUS', 'Frei Joel Postma, OFM', 'CNBB / Música Litúrgica', NULL, 'ESPIRITO_SANTO', NULL, NULL, 'https://www.youtube.com/watch?v=S6MSn1NN0po', 'Pentecostes / apresentação das oferendas'),
+    ('CONFIRMAI, Ó DEUS', 'Frei Wanderson Freitas', 'CNBB / Música Litúrgica', NULL, 'ESPIRITO_SANTO', NULL, NULL, 'https://www.youtube.com/watch?v=TEeY0Zuytc0', 'Pentecostes / apresentação das oferendas'),
+    ('Ó PAI QUE PELO ESPÍRITO', 'Frei Fabreti, OFM', 'CNBB / Música Litúrgica', NULL, 'ESPIRITO_SANTO', NULL, NULL, 'https://www.youtube.com/watch?v=gOLwiuzlwoc', 'Pentecostes / apresentação das oferendas'),
+    ('ESPÍRITO CRIADOR', 'André Zamur', 'CNBB / Música Litúrgica', NULL, 'ESPIRITO_SANTO', NULL, NULL, 'https://www.youtube.com/watch?v=nyLQaQQvtMk', 'Pentecostes / apresentação das oferendas'),
+    ('TODOS FICARAM CHEIOS DO ESPÍRITO SANTO', 'Frei Joel Postma, OFM', 'CNBB / Música Litúrgica', NULL, 'ESPIRITO_SANTO', NULL, NULL, 'https://www.youtube.com/watch?v=qDXYr0efhaA', 'Pentecostes / Comunhão'),
+    ('TODOS FICARAM CHEIOS', 'Frei Wanderson Freitas', 'CNBB / Música Litúrgica', NULL, 'ESPIRITO_SANTO', NULL, NULL, 'https://www.youtube.com/watch?v=_gEnacvnn5Y', 'Pentecostes / Comunhão'),
+    ('SENHOR, VEM DAR-NOS SABEDORIA', 'Ir. Míria T. Kolling; Pe. Lúcio Floro', 'CNBB / Música Litúrgica', NULL, 'ESPIRITO_SANTO', NULL, NULL, 'https://www.youtube.com/watch?v=_U7vorWxnXw', 'Pentecostes / Comunhão / dons do Espírito'),
+    ('ENVIAI, SENHOR!', 'Madre Tarcísia; José Alves', 'CNBB / Música Litúrgica', NULL, 'ESPIRITO_SANTO', NULL, NULL, 'https://www.youtube.com/results?search_query=CNBB+%2F+M%C3%BAsica+Lit%C3%BArgica+ENVIAI%2C+SENHOR%21', 'Pentecostes / envio'),
+    ('O ESPÍRITO DO SENHOR REPOUSA SOBRE MIM', 'Pe. José Weber, SVD', 'Pe. José Weber, SVD', NULL, 'ESPIRITO_SANTO', NULL, NULL, 'https://www.youtube.com/results?search_query=Pe.+Jos%C3%A9+Weber%2C+SVD+O+ESP%C3%8DRITO+DO+SENHOR+REPOUSA+SOBRE+MIM', 'Pentecostes / envio e missão'),
+    ('VEM, ESPÍRITO DE LUZ', 'André Zamur; Pe. Lúcio Floro', 'CNBB / Música Litúrgica', NULL, 'ESPIRITO_SANTO', NULL, NULL, 'https://www.youtube.com/watch?v=QKUQ-XR4MsU', 'Pentecostes / louvor final'),
+    ('O AMOR DE DEUS COBRIU', 'Ir. Míria T. Kolling; Pe. Lúcio Floro', 'CNBB / Música Litúrgica', NULL, 'ESPIRITO_SANTO', NULL, NULL, 'https://www.youtube.com/watch?v=BxvL5wsACYg', 'Pentecostes / louvor final'),
+    ('VEM, ESPÍRITO SANTO, VEM!', 'D.R.', 'CNBB / Música Litúrgica', NULL, 'ESPIRITO_SANTO', NULL, NULL, 'https://www.youtube.com/results?search_query=CNBB+%2F+M%C3%BAsica+Lit%C3%BArgica+VEM%2C+ESP%C3%8DRITO+SANTO%2C+VEM%21', 'Pentecostes / louvor final'),
+    ('QUANDO O ESPÍRITO DE DEUS SOPROU', 'Zé Vicente', 'Zé Vicente', NULL, 'ESPIRITO_SANTO', NULL, NULL, 'https://www.youtube.com/watch?v=Iq9v14IztBI', 'Pentecostes / envio no Espírito'),
+    ('VINDE, ESPÍRITO SANTO', 'Repertório católico tradicional', 'Músicas Católicas', NULL, 'ESPIRITO_SANTO', NULL, NULL, 'https://www.youtube.com/results?search_query=M%C3%BAsicas+Cat%C3%B3licas+VINDE%2C+ESP%C3%8DRITO+SANTO', 'Invocação ao Espírito Santo'),
+    ('VINDE, ESPÍRITO SANTO, ENCHEI OS CORAÇÕES', 'Repertório católico tradicional', 'Músicas Católicas', NULL, 'ESPIRITO_SANTO', NULL, NULL, 'https://www.youtube.com/results?search_query=M%C3%BAsicas+Cat%C3%B3licas+VINDE%2C+ESP%C3%8DRITO+SANTO%2C+ENCHEI+OS+CORA%C3%87%C3%95ES', 'Invocação tradicional ao Espírito Santo'),
+    ('ESPÍRITO SANTO, VINDE', 'Repertório católico', 'Músicas Católicas', NULL, 'ESPIRITO_SANTO', NULL, NULL, 'https://www.youtube.com/results?search_query=M%C3%BAsicas+Cat%C3%B3licas+ESP%C3%8DRITO+SANTO%2C+VINDE', 'Invocação ao Espírito Santo'),
+    ('VEM, ESPÍRITO SANTO, VEM', 'Repertório católico', 'Músicas Católicas', NULL, 'ESPIRITO_SANTO', NULL, NULL, 'https://www.youtube.com/results?search_query=M%C3%BAsicas+Cat%C3%B3licas+VEM%2C+ESP%C3%8DRITO+SANTO%2C+VEM', 'Invocação ao Espírito Santo'),
+    ('ESPÍRITO DE DEUS', 'Repertório católico', 'Músicas Católicas', NULL, 'ESPIRITO_SANTO', NULL, NULL, 'https://www.youtube.com/results?search_query=M%C3%BAsicas+Cat%C3%B3licas+ESP%C3%8DRITO+DE+DEUS', 'Invocação e presença do Espírito Santo'),
+    ('ESPÍRITO, ENCHE A MINHA VIDA', 'Repertório cristão', 'Músicas Católicas', NULL, 'ESPIRITO_SANTO', NULL, NULL, 'https://www.youtube.com/results?search_query=M%C3%BAsicas+Cat%C3%B3licas+ESP%C3%8DRITO%2C+ENCHE+A+MINHA+VIDA', 'Oração ao Espírito Santo / renovação'),
+    ('VEM, ESPÍRITO DE DEUS', 'Repertório católico', 'Músicas Católicas', NULL, 'ESPIRITO_SANTO', NULL, NULL, 'https://www.youtube.com/results?search_query=M%C3%BAsicas+Cat%C3%B3licas+VEM%2C+ESP%C3%8DRITO+DE+DEUS', 'Invocação ao Espírito Santo'),
+    ('ESPÍRITO SANTO DE DEUS', 'Repertório católico', 'Músicas Católicas', NULL, 'ESPIRITO_SANTO', NULL, NULL, 'https://www.youtube.com/results?search_query=M%C3%BAsicas+Cat%C3%B3licas+ESP%C3%8DRITO+SANTO+DE+DEUS', 'Invocação ao Espírito Santo'),
+    ('SEQUÊNCIA DE PENTECOSTES - VINDE, ESPÍRITO DIVINO', 'Sequência litúrgica de Pentecostes', 'CNBB / Música Litúrgica', NULL, 'ESPIRITO_SANTO', NULL, NULL, 'https://www.youtube.com/results?search_query=CNBB+%2F+M%C3%BAsica+Lit%C3%BArgica+SEQU%C3%8ANCIA+DE+PENTECOSTES+-+VINDE%2C+ESP%C3%8DRITO+DIVINO', 'Pentecostes / sequência litúrgica Veni Sancte Spiritus'),
+    ('VINDE, Ó ESPÍRITO SANTO', 'Sequência litúrgica / repertório católico', 'Músicas Católicas', NULL, 'ESPIRITO_SANTO', NULL, NULL, 'https://www.youtube.com/results?search_query=M%C3%BAsicas+Cat%C3%B3licas+VINDE%2C+%C3%93+ESP%C3%8DRITO+SANTO', 'Pentecostes / sequência e invocação'),
+    ('VEM, ESPÍRITO DE AMOR', 'Ministério Amor e Adoração', 'Ministério Amor e Adoração', NULL, 'ESPIRITO_SANTO', NULL, NULL, 'https://www.youtube.com/results?search_query=Minist%C3%A9rio+Amor+e+Adora%C3%A7%C3%A3o+VEM%2C+ESP%C3%8DRITO+DE+AMOR', 'Invocação ao Espírito Santo / amor de Deus'),
+    ('SANTO ESPÍRITO', 'Frei Gilson', 'Frei Gilson', NULL, 'ESPIRITO_SANTO', NULL, NULL, 'https://www.youtube.com/results?search_query=Frei+Gilson+SANTO+ESP%C3%8DRITO', 'Invocação ao Espírito Santo'),
+    ('VEM QUEIMAR O NOSSO CORAÇÃO', 'Frei Gilson', 'Frei Gilson', NULL, 'ESPIRITO_SANTO', NULL, NULL, 'https://www.youtube.com/results?search_query=Frei+Gilson+VEM+QUEIMAR+O+NOSSO+CORA%C3%87%C3%83O', 'Invocação ao Espírito Santo / fogo e renovação')
+) AS v(titulo, autor, interprete, tom, categoria, letra, cifra, link, observacao)
+WHERE NOT EXISTS (
+    SELECT 1 FROM musica m WHERE LOWER(TRIM(m.titulo)) = LOWER(TRIM(v.titulo))
+);

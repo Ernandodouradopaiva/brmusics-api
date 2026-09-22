@@ -50,11 +50,29 @@ public interface EscalaMusicoRepository extends CustomJpaRepository<EscalaMusico
             JOIN FETCH em.musico
             WHERE em.ativo = TRUE
               AND em.musico.id = :musicoId
-              AND e.status = br.gov.ce.sps.projetoa.domain.model.enums.EscalaStatus.PUBLICADA
+              AND e.status IN (
+                  br.gov.ce.sps.projetoa.domain.model.enums.EscalaStatus.PUBLICADA,
+                  br.gov.ce.sps.projetoa.domain.model.enums.EscalaStatus.RASCUNHO
+              )
               AND c.status <> br.gov.ce.sps.projetoa.domain.model.enums.CelebracaoStatus.CANCELADA
             ORDER BY c.data ASC, c.horaInicio ASC
             """)
-    List<EscalaMusico> findPublicadasDoMusico(@Param("musicoId") Long musicoId);
+    List<EscalaMusico> findVisiveisDoMusico(@Param("musicoId") Long musicoId);
+
+    @Query("""
+            SELECT em FROM EscalaMusico em
+            JOIN FETCH em.escala e
+            JOIN FETCH e.celebracao c
+            LEFT JOIN FETCH c.local
+            JOIN FETCH em.musico m
+            JOIN FETCH em.instrumento i
+            WHERE em.ativo = TRUE
+              AND c.data BETWEEN :inicio AND :fim
+            ORDER BY c.data ASC, c.horaInicio ASC, m.nome ASC
+            """)
+    List<EscalaMusico> findAtivasNoPeriodo(
+            @Param("inicio") LocalDate inicio,
+            @Param("fim") LocalDate fim);
 
     boolean existsByEscala_IdAndMusico_IdAndAtivoTrue(Long escalaId, Long musicoId);
 }

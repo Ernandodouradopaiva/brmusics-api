@@ -223,12 +223,14 @@
 				<enabled>false</enabled>
 			</releases>
 		</repository>
-		<!--Repositório da SPS-->
+		<!-- Repositório HTTP interno SPS: bloqueado pelo Maven 3.8+ (http-blocker)
+		     e inacessível no Docker Desktop fora da rede SPS. Reative na rede SPS se precisar.
 		<repository>
 		  <id>sps-mvn</id>
 		  <name>SPS Repository</name>
 		  <url>http://172.20.13.72:9501/releases</url>
 		</repository>
+		-->
 	</repositories>
 	<pluginRepositories>
 		<pluginRepository>

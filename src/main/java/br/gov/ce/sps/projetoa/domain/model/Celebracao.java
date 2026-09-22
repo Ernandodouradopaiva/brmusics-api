@@ -1,6 +1,7 @@
 package br.gov.ce.sps.projetoa.domain.model;
 
 import br.gov.ce.sps.projetoa.domain.model.enums.CelebracaoStatus;
+import br.gov.ce.sps.projetoa.domain.model.enums.CelebracaoTipo;
 import br.gov.ce.sps.projetoa.domain.model.generic.AbstractEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -18,6 +19,7 @@ import org.hibernate.envers.RelationTargetAuditMode;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.UUID;
 
 @Audited
 @Entity
@@ -55,4 +57,11 @@ public class Celebracao extends AbstractEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false, length = 20)
     private CelebracaoStatus status = CelebracaoStatus.RASCUNHO;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tipo", nullable = false, length = 20)
+    private CelebracaoTipo tipo = CelebracaoTipo.EXTRAORDINARIA;
+
+    @Column(name = "serie_codigo")
+    private UUID serieCodigo;
 }

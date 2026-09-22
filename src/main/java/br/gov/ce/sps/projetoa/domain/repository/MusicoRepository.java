@@ -31,6 +31,9 @@ public interface MusicoRepository extends CustomJpaRepository<Musico, Long> {
 
     boolean existsByUsuario_IdAndIdNot(Long usuarioId, Long id);
 
+    @Query("SELECT DISTINCT m FROM Musico m LEFT JOIN FETCH m.instrumentos")
+    List<Musico> findAllWithInstrumentos();
+
     @Query("SELECT m FROM Musico m LEFT JOIN FETCH m.usuario WHERE m.usuario.id = :usuarioId")
     Optional<Musico> findByUsuario_Id(@Param("usuarioId") Long usuarioId);
 }

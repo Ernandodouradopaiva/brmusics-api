@@ -25,8 +25,10 @@ public class MusicaInput {
     @Size(max = 40)
     private String categoriaLiturgica;
 
+    @Size(max = 2000)
     private String letra;
 
+    @Size(max = 2000)
     private String cifra;
 
     @Size(max = 2000)

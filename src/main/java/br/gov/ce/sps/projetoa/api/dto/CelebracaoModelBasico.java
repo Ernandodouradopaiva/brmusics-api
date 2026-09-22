@@ -1,6 +1,7 @@
 package br.gov.ce.sps.projetoa.api.dto;
 
 import br.gov.ce.sps.projetoa.domain.model.enums.CelebracaoStatus;
+import br.gov.ce.sps.projetoa.domain.model.enums.CelebracaoTipo;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,4 +23,6 @@ public class CelebracaoModelBasico {
     private String descricao;
     private String observacao;
     private CelebracaoStatus status;
+    private CelebracaoTipo tipo;
+    private UUID serieCodigo;
 }

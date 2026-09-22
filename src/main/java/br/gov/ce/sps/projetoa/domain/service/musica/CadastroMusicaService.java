@@ -35,23 +35,24 @@ public class CadastroMusicaService {
         musica.setInterpreteReferencia(blankToNull(input.getInterpreteReferencia()));
         musica.setTomPadrao(blankToNull(input.getTomPadrao()));
         musica.setCategoriaLiturgica(CategoriasLiturgicas.normalizar(input.getCategoriaLiturgica()));
-        musica.setLetra(blankToNull(input.getLetra()));
-        musica.setCifra(blankToNull(input.getCifra()));
-        musica.setLinkReferencia(normalizarLink(input.getLinkReferencia()));
+        musica.setLetra(normalizarLink(input.getLetra(), "O link da letra deve começar com http:// ou https://."));
+        musica.setCifra(normalizarLink(input.getCifra(), "O link da cifra deve começar com http:// ou https://."));
+        musica.setLinkReferencia(normalizarLink(input.getLinkReferencia(),
+                "O link de referência deve começar com http:// ou https://."));
         musica.setObservacao(blankToNull(input.getObservacao()));
         if (input.getAtivo() != null) {
             musica.setAtivo(input.getAtivo());
         }
     }
 
-    private static String normalizarLink(String valor) {
+    private static String normalizarLink(String valor, String mensagemErro) {
         String link = blankToNull(valor);
         if (link == null) {
             return null;
         }
         String lower = link.toLowerCase();
         if (!lower.startsWith("http://") && !lower.startsWith("https://")) {
-            throw new NegocioException("O link de referência deve começar com http:// ou https://.");
+            throw new NegocioException(mensagemErro);
         }
         return link;
     }

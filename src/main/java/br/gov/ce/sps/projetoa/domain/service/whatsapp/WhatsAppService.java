@@ -67,8 +67,9 @@ public class WhatsAppService {
                 .orElseThrow(() -> new EntityNotFoundException(
                         "Não existe publicação de escala com código " + publicacaoCodigo));
         if (publicacao.getVersao() != null && publicacao.getVersao() > 1) {
-            log.info("Republicação versão {} de {}/{}: WhatsApp não é enviado automaticamente.",
-                    publicacao.getVersao(), publicacao.getMes(), publicacao.getAno());
+            int enfileirados = enfileirarAlteracoesDaPublicacao(publicacao);
+            log.info("Republicação versão {} de {}/{}: {} alteração(ões) enfileirada(s) no WhatsApp.",
+                    publicacao.getVersao(), publicacao.getMes(), publicacao.getAno(), enfileirados);
             return;
         }
         List<WhatsAppCelebracaoResumo> atuais = carregarResumos(publicacao);
@@ -117,7 +118,8 @@ public class WhatsAppService {
                 .toList();
         model.setItens(itens);
         model.setJaComunicada(!itens.isEmpty() && itens.stream()
-                .allMatch(item -> item.getStatusEnvio() == WhatsAppEnvioStatus.ENVIADO));
+                .allMatch(item -> item.getStatusEnvio() != null
+                        && item.getStatusEnvio() != WhatsAppEnvioStatus.ERRO));
         return model;
     }
 
@@ -140,6 +142,25 @@ public class WhatsAppService {
         return enfileirarDestinos(
                 destinos,
                 whatsAppTemplateService.competencia(ano, mes),
+                atual.getVersao(),
+                true);
+    }
+
+    private int enfileirarAlteracoesDaPublicacao(EscalaPublicacao atual) {
+        Optional<EscalaPublicacao> anteriorOpt = escalaPublicacaoRepository.findByAnoAndMesAndVersao(
+                atual.getAno(), atual.getMes(), atual.getVersao() - 1);
+        if (anteriorOpt.isEmpty()) {
+            log.warn("Republicação {}/{} versão {}: versão anterior ausente; WhatsApp de alterações não enfileirado.",
+                    atual.getMes(), atual.getAno(), atual.getVersao());
+            return 0;
+        }
+        List<WhatsAppDestinatarioNotificacao> destinos = destinosAlteracao(atual, anteriorOpt.get());
+        if (destinos.isEmpty()) {
+            return 0;
+        }
+        return enfileirarDestinos(
+                destinos,
+                whatsAppTemplateService.competencia(atual.getAno(), atual.getMes()),
                 atual.getVersao(),
                 true);
     }

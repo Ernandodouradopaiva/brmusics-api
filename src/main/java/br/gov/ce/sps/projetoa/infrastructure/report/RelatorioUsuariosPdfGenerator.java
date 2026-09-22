@@ -84,8 +84,8 @@ public class RelatorioUsuariosPdfGenerator {
 
             ctx.drawObservacoes(
                     "1. Listagem conforme cadastro no sistema BRMusics.",
-                    "2. Relatório gerado no padrão executivo SPS (PDFBox).",
-                    "3. Logo em /images pode ser substituído (logo-sistema.png).");
+                    "2. Relatório gerado no padrão visual BRMusics (madeira/creme/dourado).",
+                    "3. Logo do sistema: /images/logo-sistema.png.");
 
             ctx.finalizeDocument();
             ByteArrayOutputStream out = new ByteArrayOutputStream();

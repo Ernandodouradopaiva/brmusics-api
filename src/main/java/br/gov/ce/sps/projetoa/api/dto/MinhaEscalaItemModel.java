@@ -21,6 +21,7 @@ public class MinhaEscalaItemModel {
     private LocalTime horaFim;
     private String diaSemana;
     private String localNome;
+    private String status;
     private String minhaFuncao;
     private UUID repertorioCodigo;
     private List<MinhaEscalaEquipeItemModel> equipe = new ArrayList<>();

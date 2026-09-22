@@ -58,6 +58,10 @@ public class RepertorioAssembler {
         return item;
     }
 
+    public List<RepertorioItemModel> toItemModels(List<RepertorioItem> itensAtivos) {
+        return ordenar(itensAtivos == null ? List.of() : itensAtivos).stream().map(this::toItem).toList();
+    }
+
     public RepertorioItemModel toItem(RepertorioItem item) {
         RepertorioItemModel model = new RepertorioItemModel();
         model.setCodigo(item.getCodigo());
@@ -76,21 +80,13 @@ public class RepertorioAssembler {
         return model;
     }
 
-    static List<RepertorioItem> ordenar(List<RepertorioItem> itens) {
+    public static List<RepertorioItem> ordenar(List<RepertorioItem> itens) {
         return itens.stream()
                 .sorted(Comparator
-                        .comparingInt((RepertorioItem ri) -> indiceMomento(ri.getMomentoLiturgico()))
+                        .comparingInt((RepertorioItem ri) -> CategoriasLiturgicas.indiceOrdenacao(ri.getMomentoLiturgico()))
                         .thenComparing(ri -> ri.getOrdem() == null ? 0 : ri.getOrdem())
                         .thenComparing(ri -> ri.getId() == null ? 0L : ri.getId()))
                 .toList();
-    }
-
-    private static int indiceMomento(String momento) {
-        if (momento == null) {
-            return CategoriasLiturgicas.SUGERIDAS.size();
-        }
-        int indice = CategoriasLiturgicas.SUGERIDAS.indexOf(momento);
-        return indice < 0 ? CategoriasLiturgicas.SUGERIDAS.size() : indice;
     }
 
     private void preencherCelebracao(RepertorioModel model, Celebracao celebracao) {

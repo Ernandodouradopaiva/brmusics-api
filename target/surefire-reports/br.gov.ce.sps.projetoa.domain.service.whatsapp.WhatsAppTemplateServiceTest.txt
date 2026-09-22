@@ -1,4 +1,40 @@
 -------------------------------------------------------------------------------
 Test set: br.gov.ce.sps.projetoa.domain.service.whatsapp.WhatsAppTemplateServiceTest
 -------------------------------------------------------------------------------
-Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.618 s -- in br.gov.ce.sps.projetoa.domain.service.whatsapp.WhatsAppTemplateServiceTest
+Tests run: 3, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.152 s <<< FAILURE! -- in br.gov.ce.sps.projetoa.domain.service.whatsapp.WhatsAppTemplateServiceTest
+br.gov.ce.sps.projetoa.domain.service.whatsapp.WhatsAppTemplateServiceTest.montaUmaMensagemMensalComTodasAsEscalasDoMusico -- Time elapsed: 0.091 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting actual:
+  "🎵 BRMusics — Escala de Setembro/2026
+
+Olá, João!
+
+Confira sua escala deste mês:
+
+📅 06/09/2026 — Domingo — 19:00
+⛪ Missa Dominical
+📍 Matriz
+🎸 Função: Violão
+
+🎼 Repertório:
+• Entrada: Eis-me Aqui Senhor — Tom E
+• Glória: Glória — Tom G
+• Comunhão: Pão da Vida — Tom D
+---
+
+📅 27/09/2026 — Domingo — 19:00
+⛪ Missa Dominical
+🎤 Função: Vocal
+
+🎼 Repertório:
+• Apresentação das Oferendas: Minha Vida Tem Sentido — Tom G
+
+Acesse o BRMusics para consultar sua escala completa."
+to contain:
+  "Ofertório: Minha Vida Tem Sentido — Tom G" 
+	at br.gov.ce.sps.projetoa.domain.service.whatsapp.WhatsAppTemplateServiceTest.montaUmaMensagemMensalComTodasAsEscalasDoMusico(WhatsAppTemplateServiceTest.java:54)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+

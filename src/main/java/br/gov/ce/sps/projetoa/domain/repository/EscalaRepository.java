@@ -39,6 +39,17 @@ public interface EscalaRepository extends CustomJpaRepository<Escala, Long> {
 
     @Query("""
             SELECT e FROM Escala e
+            JOIN FETCH e.celebracao c
+            LEFT JOIN FETCH c.local
+            WHERE c.data BETWEEN :inicio AND :fim
+            ORDER BY c.data ASC, c.horaInicio ASC
+            """)
+    List<Escala> findComCelebracaoNoPeriodo(
+            @Param("inicio") LocalDate inicio,
+            @Param("fim") LocalDate fim);
+
+    @Query("""
+            SELECT e FROM Escala e
             JOIN e.celebracao c
             WHERE (c.data < :data OR (c.data = :data AND c.horaInicio < :horaInicio))
               AND EXISTS (
